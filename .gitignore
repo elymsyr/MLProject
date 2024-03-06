@@ -73,6 +73,7 @@ crashlytics-build.properties
 
 # addings
 .vscode/
-venv/results/
+venv/
+results/
 Packages/
 Library/
