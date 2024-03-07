@@ -27997,9 +27997,11 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
+  switchBehavior: 1
   moveSpeed: 0.7
-  distance_lim: 10
-  actionLimit: 1500
+  distance_lim: 9
+  actionLimit: 1700
+  avr_rewards: 1000
 --- !u!114 &1176012432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28023,7 +28025,7 @@ MonoBehaviour:
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
-  m_InferenceDevice: 0
+  m_InferenceDevice: 1
   m_BehaviorType: 0
   m_BehaviorName: AgentBehavior
   TeamId: 0
@@ -28042,7 +28044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 5
+  DecisionPeriod: 8
   TakeActionsBetweenDecisions: 1
 --- !u!1 &1176152479
 GameObject:
@@ -52064,7 +52066,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -60.073, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -15.219971, y: 12.11}
+  m_AnchoredPosition: {x: -15.219971, y: 12.109985}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2105523564

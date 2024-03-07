@@ -6,9 +6,21 @@ Hello! I am just learning and testing here. Everything will change soon. The pro
 
 ### Prerequisites <a name = "prerequisites"></a>
 
+#### CPU Training
+
 Download ML Agents package from Unity Package Manager.
-Create a new python (version 3.9.13) venv with the [requirments.txt](requirments.txt) file.
+Create a new python (version 3.9.13) venv with the [requirements.txt](requirements.txt) file.
 Test the mlagents by writing on cmd 'mlagents-learn -h' after activating the environment.
+
+#### GPU Training
+
+Download ML Agents package from Unity Package Manager.
+Create a  conda (with python version 3.9.13) venv with the [requirements.txt](requirements.txt) (use pip install -r requirements) file.
+Upgrade and add some packages to conda venv -> pip install --upgrade setuptools pip wheel, pip install nvidia-pyindex, conda install cuda -c nvidia/label/cuda-11.3.0
+Download Cuda11.8 and Visual Studio2019 (I use 2019. 2022 does not work.).
+Test cuda -> open cmd, type python, import torch, print(torch.cuda.is_available()) -> expect true
+Test the mlagents by writing on cmd 'mlagents-learn -h' after activating the environment.
+You can check [requirementsConda.txt](requirementsConda.txt).
 
 ## Usage <a name = "usage"></a>
 

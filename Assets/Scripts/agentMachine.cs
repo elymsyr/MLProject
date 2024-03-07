@@ -1,21 +1,14 @@
-using System;
-using System.Runtime.CompilerServices;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using TMPro;
-using Unity.Burst.Intrinsics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
-using UnityEditor;
-using Unity.Properties;
 
 public class ChildObjectManager : Agent
 {
+    public bool switchBehavior = true;
     private GameObject parentObject;
     // private string path = Application.dataPath + "/trainLog/Log.txt";
     private int rows = 20;
@@ -35,7 +28,7 @@ public class ChildObjectManager : Agent
     private TextMeshPro ui;
     private Vector3 savedProductLoc;
     private Vector3 transformLoc;
-    public int actionLimit = 1500;
+    public int actionLimit = 1700;
     private int actionCount = 0;
     private Vector3[,] tableLoc;
     private int gameCount = 0;
@@ -93,9 +86,9 @@ public class ChildObjectManager : Agent
     }
 
     public void triggerReset(){
-        lastReward = -10;
-        AddReward(-10f);
-        AddValue(-10f);
+        lastReward = -15;
+        AddReward(-15f);
+        AddValue(-15f);
         EndEpisode();
     }
 
@@ -229,7 +222,7 @@ public class ChildObjectManager : Agent
         {
             if (child != null)
             {
-                if (GetDistanceToChild(child)){
+                if (switchBehavior || GetDistanceToChild(child)){
                     float randomDirection = actions.ContinuousActions[index]*10;
                     float newYPosition = child.localPosition.y + randomDirection * moveSpeed * Time.deltaTime;
                     newYPosition = Mathf.Clamp(newYPosition, minY, maxY);
@@ -242,6 +235,7 @@ public class ChildObjectManager : Agent
                     int j = index % columns;
                     child.transform.localPosition = tableLoc[i, j];
                 }
+
                 index++;
             }
             else{
