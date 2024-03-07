@@ -1,5 +1,5 @@
 
-Game Count: 600
-Win Count: 4
-Avg of Last 200 Rewards: -10.15961
-Last Reward: -11.97891
+Game Count: 400
+Win Count: 3
+Avg of Last 200 Rewards: -9.570716
+Last Reward: 17.58705

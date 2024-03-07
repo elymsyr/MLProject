@@ -17,21 +17,20 @@ using Unity.Properties;
 public class ChildObjectManager : Agent
 {
     private GameObject parentObject;
+    // private string path = Application.dataPath + "/trainLog/Log.txt";
     private int rows = 20;
-    private string path = Application.dataPath + "/trainLog/Log.txt";
     private int columns = 20;
     private float minY = 1.75f;
     private float maxY = 3.5f;
-    public float moveDist = 5f;
+    // private float moveDist = 5f;
     public float moveSpeed = 0.7f;
-    private int distance_lim = 8;
+    public int distance_lim = 9;
     private Transform[,] childArray;
-    private float[,] movementObserveArray;
-    private GameObject wall;
+    // private float[,] movementObserveArray;
+    // private GameObject wall;
     private GameObject product;
     private GameObject target;
-    // const float maxProductSpeed = 10;
-    public float angleTolerance = 40f;
+    // private float angleTolerance = 40f;
     private Rigidbody productRigidbody;
     private TextMeshPro ui;
     private Vector3 savedProductLoc;
@@ -45,16 +44,21 @@ public class ChildObjectManager : Agent
     private float lastReward = 0;
     private float legalY;
     private float startDistance;
+    private GameObject env;
+    private int moving_parts = 0;
+    public int avr_rewards = 1000;
+
     private void Awake()
     {
-        using (StreamWriter sw = new StreamWriter(path))
-        {
-            sw.WriteLine("\nTraining Started...");
-        }
-        last_rewards = new Queue<float>(200);
+        // using (StreamWriter sw = new StreamWriter(path))
+        // {
+        //     sw.WriteLine("\nTraining Started...");
+        // }
+        last_rewards = new Queue<float>(avr_rewards);
         transformLoc = transform.localPosition;
         product = GameObject.FindWithTag("Product");
-        wall = GameObject.FindWithTag("Wall");
+        env = GameObject.FindWithTag("Environment");
+        // wall = GameObject.FindWithTag("Wall");
         savedProductLoc = product.transform.localPosition;
         GameObject uiGameObject  = GameObject.FindWithTag("GeneralText");
         productRigidbody = product.GetComponent<Rigidbody>();
@@ -88,11 +92,6 @@ public class ChildObjectManager : Agent
         }
     }
 
-    private void Update()
-    {
-        updateUI();
-    }
-
     public void triggerReset(){
         lastReward = -10;
         AddReward(-10f);
@@ -119,7 +118,7 @@ public class ChildObjectManager : Agent
 
     public void AddValue(float newValue)
     {
-        if (last_rewards.Count == 200)
+        if (last_rewards.Count == avr_rewards)
         {
             last_rewards.Dequeue();
         }
@@ -143,41 +142,42 @@ public class ChildObjectManager : Agent
 
     private void updateUI()
     {
-        ui.text = "Product States\nSpeed: "+getProductSpeed()+"\nPosition: "+getProductPos()+"\nDistance to Target: "+targetCloseness()+"\nAngle Correctness: "+getProductRot()+"\nAction Count: "+actionCount+"\nGame Count: "+gameCount+"\nWin Count: "+win+"\nAvg of Last 200 Rewards: "+CurrentAverage()+"\nLast Reward: "+lastReward;
+        ui.text = "Product States\nPosition: "+getProductPos()+"\nDistance to Target: "+targetCloseness()+"\nAction Count: "+actionCount+"\nGame Count: "+gameCount+"\nWin Count: "+win+"\nAvg of Last "+avr_rewards+" Rewards: "+CurrentAverage()+"\nLast Reward: "+lastReward+"\nMoving Parts: "+moving_parts; //+"\nAngle Correctness: "+getProductRot() // \nSpeed: "+getProductSpeed()+"
     }
-    private void MoveChildren()
-    {
-        movementObserveArray = new float[rows, columns];
-        int index = 0;
-        foreach (Transform child in childArray)
-        {
-            if (child != null)
-            {
-                if (GetDistanceToChild(child))
-                {
-                    float randomDirection = UnityEngine.Random.Range(-moveDist, moveDist);
-                    float newYPosition = child.localPosition.y + randomDirection * moveSpeed * Time.deltaTime;
-                    newYPosition = Mathf.Clamp(newYPosition, minY, maxY);
-                    child.localPosition = new Vector3(child.localPosition.x, newYPosition, child.localPosition.z);
-                }
-                int i = index / columns;
-                int j = index % columns;
-                movementObserveArray[i, j] = child.localPosition.y;
-                index++;
-            }
-        }
-    }
-    private bool getProductRot()
-    {
-        Quaternion currentRotation = product.transform.localRotation;
-        Quaternion targetRotation = Quaternion.Euler(0f, 0f, 0f);
-        float angleDifference = Quaternion.Angle(currentRotation, targetRotation);
-        return angleDifference <= angleTolerance;
-    }
-    private float getProductSpeed()
-    {
-        return productRigidbody.velocity.magnitude;
-    }
+
+    // private void MoveChildren()
+    // {
+    //     // movementObserveArray = new float[rows, columns];
+    //     int index = 0;
+    //     foreach (Transform child in childArray)
+    //     {
+    //         if (child != null)
+    //         {
+    //             if (GetDistanceToChild(child))
+    //             {
+    //                 float randomDirection = UnityEngine.Random.Range(-moveDist, moveDist);
+    //                 float newYPosition = child.localPosition.y + randomDirection * moveSpeed * Time.deltaTime;
+    //                 newYPosition = Mathf.Clamp(newYPosition, minY, maxY);
+    //                 child.localPosition = new Vector3(child.localPosition.x, newYPosition, child.localPosition.z);
+    //             }
+    //             int i = index / rows;
+    //             int j = index % columns;
+    //             // movementObserveArray[i, j] = child.localPosition.y;
+    //             index++;
+    //         }
+    //     }
+    // }
+    // private bool getProductRot()
+    // {
+    //     Quaternion currentRotation = product.transform.localRotation;
+    //     Quaternion targetRotation = Quaternion.Euler(0f, 0f, 0f);
+    //     float angleDifference = Quaternion.Angle(currentRotation, targetRotation);
+    //     return angleDifference <= angleTolerance;
+    // }
+    // private float getProductSpeed()
+    // {
+    //     return productRigidbody.velocity.magnitude;
+    // }
     private Vector3 getProductPos()
     {
         return product.transform.localPosition;
@@ -193,7 +193,7 @@ public class ChildObjectManager : Agent
     }
     private bool GetDistanceToChild(Transform child)
     {
-        float distance = Vector3.Distance(child.transform.localPosition, product.transform.localPosition);
+        float distance = Vector3.Distance(env.transform.InverseTransformPoint(child.position), env.transform.InverseTransformPoint(product.transform.position));
         return distance < distance_lim;
     }
 
@@ -215,6 +215,7 @@ public class ChildObjectManager : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
+        moving_parts = 0;
         if (actionLimit < actionCount) //  || getProductRot() != true
         {
             float reward = rewardCalculate(1);
@@ -228,17 +229,26 @@ public class ChildObjectManager : Agent
         {
             if (child != null)
             {
-                // if (GetDistanceToChild(child))
-                float randomDirection = actions.ContinuousActions[index]*10;
-                float newYPosition = child.localPosition.y + randomDirection * moveSpeed * Time.deltaTime;
-                newYPosition = Mathf.Clamp(newYPosition, minY, maxY);
-                child.localPosition = new Vector3(child.localPosition.x, newYPosition, child.localPosition.z);
+                if (GetDistanceToChild(child)){
+                    float randomDirection = actions.ContinuousActions[index]*10;
+                    float newYPosition = child.localPosition.y + randomDirection * moveSpeed * Time.deltaTime;
+                    newYPosition = Mathf.Clamp(newYPosition, minY, maxY);
+                    child.localPosition = new Vector3(child.localPosition.x, newYPosition, child.localPosition.z);
+                    moving_parts++;
+                }
+                else
+                {
+                    int i = index / rows;
+                    int j = index % columns;
+                    child.transform.localPosition = tableLoc[i, j];
+                }
                 index++;
             }
             else{
                 Debug.Log("Null child founded!");
             }
         }
+        updateUI();
     }
 
     public override void OnEpisodeBegin()
@@ -257,12 +267,12 @@ public class ChildObjectManager : Agent
             }
         }
         gameCount++;
-        if (gameCount%200==0){
-            Debug.Log("\nAvg of Last 200 Rewards: "+CurrentAverage()+"Game Count: "+gameCount+"\nWin Count: "+win+"\nLast Reward: "+lastReward);
-            using (StreamWriter sw = new StreamWriter(path))
-            {
-                sw.Write("\nGame Count: "+gameCount+"\nWin Count: "+win+"\nAvg of Last 200 Rewards: "+CurrentAverage()+"\nLast Reward: "+lastReward);
-            }
+        if (gameCount%avr_rewards==0){
+            Debug.Log("\nAvg Rewards ("+avr_rewards+"): "+CurrentAverage()+" -> Game Count: "+gameCount+" -> Win Count: "+win+" -> Last Reward: "+lastReward);
+            // using (StreamWriter sw = new StreamWriter(path))
+            // {
+            //     sw.Write("\nGame Count: "+gameCount+"\nWin Count: "+win+"\nAvg of Last "+avr_rewards+" Rewards: "+CurrentAverage()+"\nLast Reward: "+lastReward);
+            // }
         }
     }
 
@@ -277,16 +287,15 @@ public class ChildObjectManager : Agent
         }
 
         sensor.AddObservation(getProductPos());
-        sensor.AddObservation(getProductSpeed());
+        // sensor.AddObservation(getProductSpeed());
         sensor.AddObservation(targetCloseness());
-        sensor.AddObservation(getProductRot());
-        sensor.AddObservation(getProductRot());
+        // sensor.AddObservation(getProductRot());
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
-        for (int i = 0; i < 400; i++)
+        for (int i = 0; i < columns*rows; i++)
         {
             continuousActions[i] = UnityEngine.Random.Range(-1f, 1f);
             // continuousActions[i] = Input.GetAxisRaw("Vertical");

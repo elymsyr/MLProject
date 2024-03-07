@@ -9,6 +9,7 @@ TagManager:
   - GeneralText
   - Wall
   - TestTag
+  - Environment
   layers:
   - Default
   - TransparentFX
