@@ -21,8 +21,7 @@ public class ChildObjectManager : Agent
     private Transform[,] childArray;
     // private float[,] movementObserveArray;
     // private GameObject wall;
-    private GameObject product;
-    private GameObject target;
+
     // private float angleTolerance = 40f;
     private Rigidbody productRigidbody;
     private TextMeshPro ui;
@@ -37,9 +36,17 @@ public class ChildObjectManager : Agent
     private float lastReward = 0;
     private float legalY;
     private float startDistance;
-    private GameObject env;
+    
     private int moving_parts = 0;
     public int avr_rewards = 1000;
+    [SerializeField]
+    private GameObject env;
+    [SerializeField]
+    private GameObject product;
+    [SerializeField]
+    private GameObject target;
+    [SerializeField]
+    private GameObject uiGameObject;
 
     private void Awake()
     {
@@ -49,14 +56,16 @@ public class ChildObjectManager : Agent
         // }
         last_rewards = new Queue<float>(avr_rewards);
         transformLoc = transform.localPosition;
-        product = GameObject.FindWithTag("Product");
-        env = GameObject.FindWithTag("Environment");
+        // product = GameObject.FindWithTag("Product");
+        // env = GameObject.FindWithTag("Environment");
         // wall = GameObject.FindWithTag("Wall");
         savedProductLoc = product.transform.localPosition;
-        GameObject uiGameObject  = GameObject.FindWithTag("GeneralText");
+        // GameObject uiGameObject  = GameObject.FindWithTag("GeneralText");
         productRigidbody = product.GetComponent<Rigidbody>();
-        ui = uiGameObject.GetComponent<TextMeshPro>();
-        target = GameObject.FindWithTag("Target");
+        if (uiGameObject != null){
+            ui = uiGameObject.GetComponent<TextMeshPro>();
+        }
+        // target = GameObject.FindWithTag("Target");
         legalY = target.transform.localPosition.y;
         parentObject = transform.gameObject;
         if (parentObject != null)
@@ -242,7 +251,9 @@ public class ChildObjectManager : Agent
                 Debug.Log("Null child founded!");
             }
         }
-        updateUI();
+        if (ui != null){
+            updateUI();
+        }
     }
 
     public override void OnEpisodeBegin()

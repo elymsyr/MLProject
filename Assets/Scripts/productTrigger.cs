@@ -4,18 +4,47 @@ using UnityEngine;
 
 public class productTrigger : MonoBehaviour
 {
-    GameObject receiverObject;
-    private void Start()
-    {
-        receiverObject = GameObject.FindWithTag("Player");
-    }
+    [SerializeField]
+    private GameObject receiverObject;
+    [SerializeField]
+    private GameObject wall0;
+    [SerializeField]
+    private GameObject wall1;
+    [SerializeField]
+    private GameObject wall2;
+    [SerializeField]
+    private GameObject wall3;
+    [SerializeField]
+    private GameObject wall4;
+
+    [SerializeField]
+    private GameObject target;
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Wall"))
+        if (other.gameObject == wall0)
         {
             receiverObject.SendMessage("triggerReset");
         }
-        if (other.CompareTag("Target"))
+        if (other.gameObject == wall1)
+        {
+            receiverObject.SendMessage("triggerReset");
+        }
+        if (other.gameObject == wall2)
+        {
+            receiverObject.SendMessage("triggerReset");
+        }
+        if (other.gameObject == wall3)
+        {
+            receiverObject.SendMessage("triggerReset");
+        }
+        if (other.gameObject == wall4)
+        {
+            receiverObject.SendMessage("triggerReset");
+        }
+
+                                     
+        if (other.gameObject == target)
         {
             receiverObject.SendMessage("winReset");
         }
