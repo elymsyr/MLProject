@@ -74,7 +74,7 @@ crashlytics-build.properties
 # addings
 .vscode/
 venv/
-results/
+# results/
 Packages/
 Library/
 ml-agents-release_21/
