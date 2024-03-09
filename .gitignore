@@ -79,4 +79,6 @@ Packages/
 Library/
 ml-agents-release_21/
 Builds/
-Docs/
+
+my_notes.md
+envProblem.mp4
