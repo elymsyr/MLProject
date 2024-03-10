@@ -48,10 +48,10 @@ public class ChildObjectManager : Agent
     private GameObject target;
     [SerializeField]
     private GameObject uiGameObject;
-    [SerializeField]
-    [Range(0.0f, 2.0f)]
-    private float multiplier = 1.5f;
-    private IWorker worker;
+    // [SerializeField]
+    // [Range(0.0f, 2.0f)]
+    // private float multiplier = 1.5f;
+    // private IWorker worker;
 
     private void Awake()
     {
