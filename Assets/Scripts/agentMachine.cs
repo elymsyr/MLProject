@@ -5,6 +5,7 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
+using Unity.Barracuda;
 
 public class ChildObjectManager : Agent
 {
@@ -47,9 +48,16 @@ public class ChildObjectManager : Agent
     private GameObject target;
     [SerializeField]
     private GameObject uiGameObject;
+    [SerializeField]
+    [Range(0.0f, 2.0f)]
+    private float multiplier = 1.5f;
+    private IWorker worker;
 
     private void Awake()
     {
+        // Time.timeScale = Time.timeScale * multiplier;
+        // Time.fixedDeltaTime = Time.fixedDeltaTime * multiplier;
+
         // using (StreamWriter sw = new StreamWriter(path))
         // {
         //     sw.WriteLine("\nTraining Started...");
