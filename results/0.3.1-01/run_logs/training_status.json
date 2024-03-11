@@ -9,15 +9,42 @@
                 "auxillary_file_paths": [
                     "results\\0.3.1-01\\AgentBehavior\\AgentBehavior-305363.pt"
                 ]
+            },
+            {
+                "steps": 499939,
+                "file_path": "results\\0.3.1-01\\AgentBehavior\\AgentBehavior-499939.onnx",
+                "reward": -8.31880642159989,
+                "creation_time": 1710195110.2043219,
+                "auxillary_file_paths": [
+                    "results\\0.3.1-01\\AgentBehavior\\AgentBehavior-499939.pt"
+                ]
+            },
+            {
+                "steps": 999986,
+                "file_path": "results\\0.3.1-01\\AgentBehavior\\AgentBehavior-999986.onnx",
+                "reward": -9.399232974823784,
+                "creation_time": 1710196962.2019043,
+                "auxillary_file_paths": [
+                    "results\\0.3.1-01\\AgentBehavior\\AgentBehavior-999986.pt"
+                ]
+            },
+            {
+                "steps": 1020917,
+                "file_path": "results\\0.3.1-01\\AgentBehavior\\AgentBehavior-1020917.onnx",
+                "reward": -9.530211738235241,
+                "creation_time": 1710197038.3869781,
+                "auxillary_file_paths": [
+                    "results\\0.3.1-01\\AgentBehavior\\AgentBehavior-1020917.pt"
+                ]
             }
         ],
         "final_checkpoint": {
-            "steps": 305363,
+            "steps": 1020917,
             "file_path": "results\\0.3.1-01\\AgentBehavior.onnx",
-            "reward": -10.32750328186722,
-            "creation_time": 1710110485.6129315,
+            "reward": -9.530211738235241,
+            "creation_time": 1710197038.3869781,
             "auxillary_file_paths": [
-                "results\\0.3.1-01\\AgentBehavior\\AgentBehavior-305363.pt"
+                "results\\0.3.1-01\\AgentBehavior\\AgentBehavior-1020917.pt"
             ]
         }
     },
