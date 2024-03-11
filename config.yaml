@@ -39,12 +39,12 @@ behaviors:
     checkpoint_interval: 500000
     max_steps: 10000000
     time_horizon: 64
-    summary_freq: 20000
+    summary_freq: 10000
     threaded: false
     self_play: null
     behavioral_cloning: null
 env_settings:
-  env_path: Builds\0.3.0\MLProject.exe
+  env_path: Builds\0.3.1\MLProject.exe
   env_args: null
   base_port: 5005
   num_envs: 3
@@ -63,7 +63,7 @@ engine_settings:
   no_graphics: true
 environment_parameters: null
 checkpoint_settings:
-  run_id: 0.3.0-01
+  run_id: 0.3.1-01
   initialize_from:
   load_model: false
   resume: false
@@ -72,5 +72,5 @@ checkpoint_settings:
   inference: false
   results_dir: results
 torch_settings:
-  device: null
+  device: cuda
 debug: false

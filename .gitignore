@@ -5,7 +5,6 @@
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
-/[Bb]uild/
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
@@ -78,7 +77,6 @@ venv/
 Packages/
 Library/
 ml-agents-release_21/
-Builds/
 
 my_notes.md
 envProblem.mp4

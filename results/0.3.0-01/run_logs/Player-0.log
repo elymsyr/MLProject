@@ -1,7 +1,7 @@
 Mono path[0] = 'C:/Users/orhun/MLProject/Builds/0.3.0/MLProject_Data/Managed'
 Mono config path = 'C:/Users/orhun/MLProject/Builds/0.3.0/MonoBleedingEdge/etc'
 Found 1 interfaces on host : 0) 192.168.1.3
-Player connection [4980] Multi-casting "[IP] 192.168.1.3 [Port] 55001 [Flags] 2 [Guid] 252618676 [EditorId] 552890890 [Version] 1048832 [Id] WindowsPlayer(2,EREN) [Debug] 0 [PackageName] WindowsPlayer [ProjectName] MLProject" to [225.0.0.222:54997]...
+Player connection [30344] Multi-casting "[IP] 192.168.1.3 [Port] 55000 [Flags] 2 [Guid] 1308320483 [EditorId] 552890890 [Version] 1048832 [Id] WindowsPlayer(2,EREN) [Debug] 0 [PackageName] WindowsPlayer [ProjectName] MLProject" to [225.0.0.222:54997]...
 
 [Physics::Module] Initialized MultithreadedJobDispatcher with 7 workers.
 Initialize engine version: 2022.3.20f1 (61c2feb0970d)
@@ -13,8 +13,8 @@ NullGfxDevice:
     Renderer: Null Device
     Vendor:   Unity Technologies
 Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  0.300 seconds
-- Finished resetting the current domain, in  0.003 seconds
+- Loaded All Assemblies, in  0.212 seconds
+- Finished resetting the current domain, in  0.002 seconds
 ERROR: Shader Sprites/Default shader is not supported on this GPU (none of subshaders/fallbacks are suitable)
 Microsoft Media Foundation video decoding to texture disabled: graphics device is Null, only Direct3D 11 and Direct3D 12 (only on desktop) are supported for hardware-accelerated video decoding.
 ERROR: Shader Sprites/Mask shader is not supported on this GPU (none of subshaders/fallbacks are suitable)
@@ -28,40 +28,14 @@ WARNING: Shader Did you use #pragma only_renderers and omit this platform?
 WARNING: Shader If subshaders removal was intentional, you may have forgotten turning Fallback off?
 ERROR: Shader GUI/Text Shader shader is not supported on this GPU (none of subshaders/fallbacks are suitable)
 ERROR: Shader TextMeshPro/Mobile/Distance Field shader is not supported on this GPU (none of subshaders/fallbacks are suitable)
-UnloadTime: 6.187600 ms
+UnloadTime: 7.037000 ms
 ERROR: Shader TextMeshPro/Sprite shader is not supported on this GPU (none of subshaders/fallbacks are suitable)
-GRPC Exception: Status(StatusCode=Unknown, Detail="Exception calling application: [WinError 232] The pipe is being closed"). Disconnecting from trainer.
-UnityEngine.StackTraceUtility:ExtractStackTrace () (at C:/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
-UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
-UnityEngine.Logger:Log (UnityEngine.LogType,object)
-UnityEngine.Debug:Log (object)
-Unity.MLAgents.RpcCommunicator:Exchange (Unity.MLAgents.CommunicatorObjects.UnityOutputProto) (at ./Library/PackageCache/com.unity.ml-agents@2.0.1/Runtime/Communicator/RpcCommunicator.cs:497)
-Unity.MLAgents.RpcCommunicator:SendBatchedMessageHelper () (at ./Library/PackageCache/com.unity.ml-agents@2.0.1/Runtime/Communicator/RpcCommunicator.cs:393)
-Unity.MLAgents.RpcCommunicator:DecideBatch () (at ./Library/PackageCache/com.unity.ml-agents@2.0.1/Runtime/Communicator/RpcCommunicator.cs:320)
-Unity.MLAgents.Policies.RemotePolicy:DecideAction () (at ./Library/PackageCache/com.unity.ml-agents@2.0.1/Runtime/Policies/RemotePolicy.cs:67)
-Unity.MLAgents.Agent:DecideAction () (at ./Library/PackageCache/com.unity.ml-agents@2.0.1/Runtime/Agent.cs:1360)
-Unity.MLAgents.Academy:EnvironmentStep () (at ./Library/PackageCache/com.unity.ml-agents@2.0.1/Runtime/Academy.cs:578)
-Unity.MLAgents.AcademyFixedUpdateStepper:FixedUpdate () (at ./Library/PackageCache/com.unity.ml-agents@2.0.1/Runtime/Academy.cs:43)
-
-(Filename: ./Library/PackageCache/com.unity.ml-agents@2.0.1/Runtime/Communicator/RpcCommunicator.cs Line: 497)
-
-Unable to save timers to file C:/Users/orhun/MLProject/Builds/0.3.0/MLProject_Data\ML-Agents\Timers\scene_v030_timers.json
-UnityEngine.StackTraceUtility:ExtractStackTrace () (at C:/build/output/unity/unity/Runtime/Export/Scripting/StackTrace.cs:37)
-UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
-UnityEngine.Logger:Log (UnityEngine.LogType,object)
-UnityEngine.Debug:LogWarning (object)
-Unity.MLAgents.TimerStack:SaveJsonTimers (string) (at ./Library/PackageCache/com.unity.ml-agents@2.0.1/Runtime/Timer.cs:483)
-Unity.MLAgents.Academy:Dispose () (at ./Library/PackageCache/com.unity.ml-agents@2.0.1/Runtime/Academy.cs:659)
-UnityEngine.Application:Internal_ApplicationQuit () (at C:/build/output/unity/unity/Runtime/Export/Application/Application.cs:359)
-
-(Filename: ./Library/PackageCache/com.unity.ml-agents@2.0.1/Runtime/Timer.cs Line: 483)
-
 Setting up 4 worker threads for Enlighten.
 PlayerConnection::CleanupMemory Statistics:
 [ALLOC_TEMP_TLS] TLS Allocator
   StackAllocators : 
     [ALLOC_TEMP_MAIN]
-      Peak usage frame count: [16.0 KB-32.0 KB]: 1373 frames, [2.0 MB-4.0 MB]: 1 frames
+      Peak usage frame count: [16.0 KB-32.0 KB]: 102401 frames, [2.0 MB-4.0 MB]: 1 frames
       Initial Block Size 4.0 MB
       Current Block Size 4.0 MB
       Peak Allocated Bytes 2.1 MB
@@ -143,7 +117,7 @@ PlayerConnection::CleanupMemory Statistics:
       Overflow Count 0
     [ALLOC_TEMP_Loading.PreloadManager]
       Initial Block Size 256.0 KB
-      Current Block Size 356.0 KB
+      Current Block Size 360.0 KB
       Peak Allocated Bytes 231.4 KB
       Overflow Count 4
     [ALLOC_TEMP_Background Job.worker 4]
@@ -227,7 +201,7 @@ PlayerConnection::CleanupMemory Statistics:
       Peak Allocated Bytes 252 B
       Overflow Count 0
 [ALLOC_MEMORYPROFILER]
-  Peak usage frame count: [256.0 KB-0.5 MB]: 1374 frames
+  Peak usage frame count: [256.0 KB-0.5 MB]: 102402 frames
   Requested Block Size 1.0 MB
   Peak Block count 1
   Peak Allocated memory 447.4 KB
@@ -239,13 +213,13 @@ PlayerConnection::CleanupMemory Statistics:
       Used Block count 1
       Peak Allocated bytes 1.1 MB
     [ALLOC_DEFAULT_MAIN]
-      Peak usage frame count: [32.0 MB-64.0 MB]: 1374 frames
+      Peak usage frame count: [32.0 MB-64.0 MB]: 102402 frames
       Requested Block Size 16.0 MB
       Peak Block count 2
-      Peak Allocated memory 32.9 MB
+      Peak Allocated memory 33.0 MB
       Peak Large allocation bytes 16.0 MB
     [ALLOC_DEFAULT_THREAD]
-      Peak usage frame count: [4.0 MB-8.0 MB]: 1374 frames
+      Peak usage frame count: [4.0 MB-8.0 MB]: 102402 frames
       Requested Block Size 16.0 MB
       Peak Block count 1
       Peak Allocated memory 6.2 MB
@@ -277,13 +251,13 @@ PlayerConnection::CleanupMemory Statistics:
       Used Block count 1
       Peak Allocated bytes 1.1 MB
     [ALLOC_GFX_MAIN]
-      Peak usage frame count: [32.0 KB-64.0 KB]: 1373 frames, [64.0 KB-128.0 KB]: 1 frames
+      Peak usage frame count: [32.0 KB-64.0 KB]: 102401 frames, [64.0 KB-128.0 KB]: 1 frames
       Requested Block Size 16.0 MB
       Peak Block count 1
       Peak Allocated memory 111.9 KB
       Peak Large allocation bytes 0 B
     [ALLOC_GFX_THREAD]
-      Peak usage frame count: [16.0 KB-32.0 KB]: 1374 frames
+      Peak usage frame count: [16.0 KB-32.0 KB]: 102402 frames
       Requested Block Size 16.0 MB
       Peak Block count 1
       Peak Allocated memory 30.0 KB
@@ -295,16 +269,16 @@ PlayerConnection::CleanupMemory Statistics:
       Used Block count 1
       Peak Allocated bytes 1.1 MB
     [ALLOC_CACHEOBJECTS_MAIN]
-      Peak usage frame count: [1.0 MB-2.0 MB]: 1374 frames
+      Peak usage frame count: [1.0 MB-2.0 MB]: 102402 frames
       Requested Block Size 4.0 MB
       Peak Block count 1
       Peak Allocated memory 1.1 MB
       Peak Large allocation bytes 0 B
     [ALLOC_CACHEOBJECTS_THREAD]
-      Peak usage frame count: [2.0 MB-4.0 MB]: 1373 frames, [4.0 MB-8.0 MB]: 1 frames
+      Peak usage frame count: [2.0 MB-4.0 MB]: 102401 frames, [4.0 MB-8.0 MB]: 1 frames
       Requested Block Size 4.0 MB
       Peak Block count 2
-      Peak Allocated memory 6.5 MB
+      Peak Allocated memory 7.4 MB
       Peak Large allocation bytes 0 B
 [ALLOC_TYPETREE] Dual Thread Allocator
   Peak main deferred allocation count 0
@@ -313,19 +287,19 @@ PlayerConnection::CleanupMemory Statistics:
       Used Block count 1
       Peak Allocated bytes 1.1 MB
     [ALLOC_TYPETREE_MAIN]
-      Peak usage frame count: [8.0 KB-16.0 KB]: 1374 frames
+      Peak usage frame count: [8.0 KB-16.0 KB]: 102402 frames
       Requested Block Size 2.0 MB
       Peak Block count 1
       Peak Allocated memory 9.6 KB
       Peak Large allocation bytes 0 B
     [ALLOC_TYPETREE_THREAD]
-      Peak usage frame count: [4.0 KB-8.0 KB]: 1374 frames
+      Peak usage frame count: [4.0 KB-8.0 KB]: 102402 frames
       Requested Block Size 2.0 MB
       Peak Block count 1
       Peak Allocated memory 7.5 KB
       Peak Large allocation bytes 0 B
 [ALLOC_PROFILER]
-  Peak usage frame count: [256.0 KB-0.5 MB]: 1373 frames, [32.0 MB-64.0 MB]: 1 frames
+  Peak usage frame count: [256.0 KB-0.5 MB]: 102401 frames, [32.0 MB-64.0 MB]: 1 frames
   Requested Block Size 16.0 MB
   Peak Block count 3
   Peak Allocated memory 33.3 MB
@@ -334,4 +308,4 @@ PlayerConnection::CleanupMemory Statistics:
       Large Block size 4.0 MB
       Used Block count 1
       Peak Allocated bytes 65.8 KB
-##utp:{"type":"MemoryLeaks","version":2,"phase":"Immediate","time":1710086277164,"processId":1776,"allocatedMemory":13134,"memoryLabels":[{"Default":-128},{"Manager":9000},{"Shader":368},{"GfxDevice":72},{"Serialization":52},{"String":122},{"HashMap":1536},{"PoolAlloc":112},{"VR":1776},{"Subsystems":96},{"CoreBusinessMetrics":128}]}
+##utp:{"type":"MemoryLeaks","version":2,"phase":"Immediate","time":1710096383057,"processId":9212,"allocatedMemory":13134,"memoryLabels":[{"Default":-128},{"Manager":9000},{"Shader":368},{"GfxDevice":72},{"Serialization":52},{"String":122},{"HashMap":1536},{"PoolAlloc":112},{"VR":1776},{"Subsystems":96},{"CoreBusinessMetrics":128}]}

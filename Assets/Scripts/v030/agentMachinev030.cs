@@ -17,9 +17,9 @@ public class ChildObjectManagerv030 : Agent
     Vector3 target_start;
     Vector3 product_start;
     private float minY = 0f;
-    private float maxY = 3.5f;
+    private float maxY = 3f;
     public float move_speed = 9f;
-    public int distance_lim = 9;
+    private int distance_lim = 10;
     private Transform[,] childArray;
     private Rigidbody productRigidbody;
     private TextMeshPro ui;
