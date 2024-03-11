@@ -44,7 +44,7 @@ behaviors:
     self_play: null
     behavioral_cloning: null
 env_settings:
-  env_path: Builds\0.3.1\MLProject.exe
+  env_path: colabDocs\0.3.1\MLProject.exe
   env_args: null
   base_port: 5005
   num_envs: 3
@@ -63,7 +63,7 @@ engine_settings:
   no_graphics: true
 environment_parameters: null
 checkpoint_settings:
-  run_id: 0.3.1-01
+  run_id: 0.3.1-01colab
   initialize_from: null
   load_model: false
   resume: false
