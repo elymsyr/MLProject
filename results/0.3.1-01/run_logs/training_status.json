@@ -2,15 +2,6 @@
     "AgentBehavior": {
         "checkpoints": [
             {
-                "steps": 305363,
-                "file_path": "results\\0.3.1-01\\AgentBehavior\\AgentBehavior-305363.onnx",
-                "reward": -10.32750328186722,
-                "creation_time": 1710110485.6129315,
-                "auxillary_file_paths": [
-                    "results\\0.3.1-01\\AgentBehavior\\AgentBehavior-305363.pt"
-                ]
-            },
-            {
                 "steps": 499939,
                 "file_path": "results\\0.3.1-01\\AgentBehavior\\AgentBehavior-499939.onnx",
                 "reward": -8.31880642159989,
@@ -36,15 +27,33 @@
                 "auxillary_file_paths": [
                     "results\\0.3.1-01\\AgentBehavior\\AgentBehavior-1020917.pt"
                 ]
+            },
+            {
+                "steps": 1499967,
+                "file_path": "results\\0.3.1-01\\AgentBehavior\\AgentBehavior-1499967.onnx",
+                "reward": -9.587750692851841,
+                "creation_time": 1710198808.4787,
+                "auxillary_file_paths": [
+                    "results\\0.3.1-01\\AgentBehavior\\AgentBehavior-1499967.pt"
+                ]
+            },
+            {
+                "steps": 1539549,
+                "file_path": "results\\0.3.1-01\\AgentBehavior\\AgentBehavior-1539549.onnx",
+                "reward": -9.268756527900695,
+                "creation_time": 1710198945.6588538,
+                "auxillary_file_paths": [
+                    "results\\0.3.1-01\\AgentBehavior\\AgentBehavior-1539549.pt"
+                ]
             }
         ],
         "final_checkpoint": {
-            "steps": 1020917,
+            "steps": 1539549,
             "file_path": "results\\0.3.1-01\\AgentBehavior.onnx",
-            "reward": -9.530211738235241,
-            "creation_time": 1710197038.3869781,
+            "reward": -9.268756527900695,
+            "creation_time": 1710198945.6588538,
             "auxillary_file_paths": [
-                "results\\0.3.1-01\\AgentBehavior\\AgentBehavior-1020917.pt"
+                "results\\0.3.1-01\\AgentBehavior\\AgentBehavior-1539549.pt"
             ]
         }
     },

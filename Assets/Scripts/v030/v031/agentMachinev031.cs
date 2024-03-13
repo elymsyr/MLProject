@@ -18,13 +18,13 @@ public class ChildObjectManagerv031 : Agent
     Vector3 product_start;
     private float minY = 0f;
     private float maxY = 2.8f;
-    public float move_speed = 7f;
+    public float move_speed = 8f;
     private int distance_lim = 10;
     private Transform[,] childArray;
     private Rigidbody productRigidbody;
     private TextMeshPro ui;
     private Vector3 transformLoc;
-    public int actionLimit = 1000;
+    public int actionLimit = 1500;
     private int actionCount = 0;
     private Vector3[,] tableLoc;
     private int gameCount = 0;
@@ -39,7 +39,7 @@ public class ChildObjectManagerv031 : Agent
     private GameObject target;
     [SerializeField]
     private GameObject uiGameObject;
-    private float last_reward; 
+    private float last_reward = 0; 
     private float new_reward; 
 
     private void Awake()
@@ -138,10 +138,9 @@ public class ChildObjectManagerv031 : Agent
     }
     public override void OnEpisodeBegin()
     {
-        SetReward(0);
         productRigidbody.velocity = Vector3.zero;
         transform.localPosition = transformLoc;
-
+        last_reward = 0;
         do {
             target_start = randomPos();
             product_start = randomPos();
