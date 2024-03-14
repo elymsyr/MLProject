@@ -6,14 +6,15 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using Unity.Barracuda;
+using System.Diagnostics;
 
 public class ChildObjectManagerv040 : Agent
 {
     [SerializeField]
     private bool switchBehavior = false;
     private GameObject parentObject;
-    private int rows = 16;
-    private int columns = 16;
+    private int rows = 15;
+    private int columns = 15;
     private Vector3 target_start;
     private Vector3 product_start;
     private float minY = 0f;
@@ -21,11 +22,11 @@ public class ChildObjectManagerv040 : Agent
     [SerializeField]
     private float move_speed = 8f;
     [SerializeField]
-    private int distance_lim = 8;
+    private float distance_lim = 4.35f;
     private Transform[,] childArray;
     private Rigidbody productRigidbody;
     [SerializeField]
-    private int actionLimit = 800;
+    private int actionLimit = 900;
     private int actionCount = 0;
     private Vector3[,] tableLoc;
     private int gameCount = 0;
@@ -39,11 +40,15 @@ public class ChildObjectManagerv040 : Agent
     private GameObject target;
     private float last_reward = 0; 
     private float new_reward; 
+    private float total_reward = 0;
 
+private void Update(){
+    UnityEngine.Debug.Log(GetCumulativeReward());
+}
     private void Awake()
     {
         productRigidbody = product.GetComponent<Rigidbody>();
-        legalY = target.transform.localPosition.y;
+        legalY = product.transform.localPosition.y;
         parentObject = transform.gameObject;
         if (parentObject != null)
         {
@@ -51,7 +56,7 @@ public class ChildObjectManagerv040 : Agent
         }
         else
         {
-            Debug.LogError("Parent object not assigned!");
+            UnityEngine.Debug.LogError("Parent object not assigned!");
         }
     }
     private void GetChildObjects()
@@ -70,11 +75,11 @@ public class ChildObjectManagerv040 : Agent
         }
     }
     public void triggerReset(){
-        AddReward(-10f);
+        AddReward(-15f);
         EndEpisode();
     }
     public void winReset(){
-            AddReward((actionLimit-actionCount)/(startDistance*5)+10f);
+            AddReward((actionLimit-actionCount)*startDistance/actionLimit);
             EndEpisode();
     }
     private float targetCloseness()
@@ -84,15 +89,15 @@ public class ChildObjectManagerv040 : Agent
     }
     private bool GetDistanceToChild(Transform child)
     {
-        float distance = Vector3.Distance(env.transform.InverseTransformPoint(child.position), env.transform.InverseTransformPoint(product.transform.position));
+        float distance = Vector3.Distance(env.transform.InverseTransformPoint(new Vector3(child.position.x, 0f, child.position.z)), env.transform.InverseTransformPoint(new Vector3(product.transform.position.x, 0f, product.transform.position.z)));
         return distance < distance_lim;
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
         new_reward = (startDistance-targetCloseness())*10/startDistance;
-        var collected_reward = new_reward - last_reward;
+        AddReward(new_reward - last_reward);
+        total_reward += new_reward - last_reward;
         last_reward = new_reward;
-        AddReward(collected_reward);
         if (actionLimit < actionCount)
         {
             AddReward(-10f);
@@ -119,12 +124,13 @@ public class ChildObjectManagerv040 : Agent
                 index++;
             }
             else{
-                Debug.Log("Null child founded!");
+                UnityEngine.Debug.Log("Null child founded!");
             }
         }
     }
     public override void OnEpisodeBegin()
     {
+        total_reward = 0;
         productRigidbody.velocity = Vector3.zero;
         last_reward = 0;
         do {
@@ -159,6 +165,9 @@ public class ChildObjectManagerv040 : Agent
         sensor.AddObservation(product.transform.localPosition);
         sensor.AddObservation(targetCloseness());
     }
+    private Vector3 randomPos(){
+        return new Vector3(Random.Range(-39.52f, -26.7f), legalY, Random.Range(1.51f, 14.05f));
+    }
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
@@ -166,9 +175,6 @@ public class ChildObjectManagerv040 : Agent
         {
             continuousActions[i] = Random.Range(-1f, 1f);
         }
-    }
-    private Vector3 randomPos(){
-        return new Vector3(Random.Range(-39.31f, -26.42f), legalY, Random.Range(1.5f, 15f));
     }
 
 }

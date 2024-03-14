@@ -1,0 +1,65 @@
+{
+    "AgentBehavior": {
+        "checkpoints": [
+            {
+                "steps": 4559377,
+                "file_path": "results\\0.4.0-01\\AgentBehavior\\AgentBehavior-4559377.onnx",
+                "reward": 15.633089784661244,
+                "creation_time": 1710384262.168835,
+                "auxillary_file_paths": [
+                    "results\\0.4.0-01\\AgentBehavior\\AgentBehavior-4559377.pt"
+                ]
+            },
+            {
+                "steps": 4999996,
+                "file_path": "results\\0.4.0-01\\AgentBehavior\\AgentBehavior-4999996.onnx",
+                "reward": 11.845578701122777,
+                "creation_time": 1710412081.5878758,
+                "auxillary_file_paths": [
+                    "results\\0.4.0-01\\AgentBehavior\\AgentBehavior-4999996.pt"
+                ]
+            },
+            {
+                "steps": 5499991,
+                "file_path": "results\\0.4.0-01\\AgentBehavior\\AgentBehavior-5499991.onnx",
+                "reward": 16.533221690942135,
+                "creation_time": 1710413317.0935822,
+                "auxillary_file_paths": [
+                    "results\\0.4.0-01\\AgentBehavior\\AgentBehavior-5499991.pt"
+                ]
+            },
+            {
+                "steps": 5999978,
+                "file_path": "results\\0.4.0-01\\AgentBehavior\\AgentBehavior-5999978.onnx",
+                "reward": 13.453487027775157,
+                "creation_time": 1710414489.9285898,
+                "auxillary_file_paths": [
+                    "results\\0.4.0-01\\AgentBehavior\\AgentBehavior-5999978.pt"
+                ]
+            },
+            {
+                "steps": 6321685,
+                "file_path": "results\\0.4.0-01\\AgentBehavior\\AgentBehavior-6321685.onnx",
+                "reward": 18.450012816825794,
+                "creation_time": 1710415345.4307125,
+                "auxillary_file_paths": [
+                    "results\\0.4.0-01\\AgentBehavior\\AgentBehavior-6321685.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 6321685,
+            "file_path": "results\\0.4.0-01\\AgentBehavior.onnx",
+            "reward": 18.450012816825794,
+            "creation_time": 1710415345.4307125,
+            "auxillary_file_paths": [
+                "results\\0.4.0-01\\AgentBehavior\\AgentBehavior-6321685.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "2.2.1"
+    }
+}
