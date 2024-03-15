@@ -16082,11 +16082,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1097672652}
+  - component: {fileID: 1097672658}
   - component: {fileID: 1097672657}
   - component: {fileID: 1097672656}
   - component: {fileID: 1097672655}
   - component: {fileID: 1097672654}
-  - component: {fileID: 1097672658}
   m_Layer: 0
   m_Name: Product
   m_TagString: Product
