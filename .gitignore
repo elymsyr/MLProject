@@ -77,9 +77,9 @@ results/
 Packages/
 Library/
 ml-agents-release_21/
-Docs/
-Jupyter/
-Builds/
+/Docs/
+/Jupyter/
+/Builds/
 
 Assembly-CSharp.csproj
 my_notes.md
