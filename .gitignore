@@ -73,14 +73,11 @@ crashlytics-build.properties
 # addings
 .vscode/
 venv/
-results/
 Packages/
 Library/
 ml-agents-release_21/
-/Docs/
-/Jupyter/
-/Builds/
-
-Assembly-CSharp.csproj
-my_notes.md
-envProblem.mp4
+# results/
+# /Docs/
+# /Jupyter/
+# /Builds/
+# Assembly-CSharp.csproj
