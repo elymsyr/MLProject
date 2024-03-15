@@ -76,8 +76,8 @@ venv/
 Packages/
 Library/
 ml-agents-release_21/
-# results/
-# /Docs/
-# /Jupyter/
-# /Builds/
-# Assembly-CSharp.csproj
+results/
+Docs/
+Jupyter/
+Builds/
+Assembly-CSharp.csproj
