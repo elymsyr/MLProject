@@ -12,7 +12,10 @@ public class ChildObjectManagerv040 : Agent
 {
     [SerializeField]
     private bool switchBehavior = false;
+    [SerializeField]
+    private bool showUI = false;
     private GameObject parentObject;
+    private TextMeshPro ui;
     private int rows = 15;
     private int columns = 15;
     private Vector3 target_start;
@@ -41,12 +44,20 @@ public class ChildObjectManagerv040 : Agent
     private float last_reward = 0; 
     private float new_reward; 
     private float total_reward = 0;
+    private int win = 0;
+    [SerializeField]
+    private GameObject text;
 
 private void Update(){
     UnityEngine.Debug.Log(GetCumulativeReward());
 }
     private void Awake()
     {
+
+        if (text != null)
+        {
+            ui = text.GetComponent<TextMeshPro>();
+        }
         productRigidbody = product.GetComponent<Rigidbody>();
         legalY = product.transform.localPosition.y;
         parentObject = transform.gameObject;
@@ -74,13 +85,19 @@ private void Update(){
             index++;
         }
     }
+    
+    private void updateUI()
+    {
+        ui.text = "Product States\nPosition: "+product.transform.position+"\nDistance to Target: "+targetCloseness()+"\nAction Count: "+actionCount+"\nGame Count: "+gameCount+"\nWin Count: "+win+"\nReward: "+GetCumulativeReward();
+    }
     public void triggerReset(){
         AddReward(-15f);
         EndEpisode();
     }
     public void winReset(){
-            AddReward((actionLimit-actionCount)*startDistance/actionLimit);
-            EndEpisode();
+        win++;
+        AddReward((actionLimit-actionCount)*startDistance/actionLimit);
+        EndEpisode();
     }
     private float targetCloseness()
     {
@@ -126,6 +143,10 @@ private void Update(){
             else{
                 UnityEngine.Debug.Log("Null child founded!");
             }
+        }
+        if (showUI)
+        {
+            updateUI();
         }
     }
     public override void OnEpisodeBegin()

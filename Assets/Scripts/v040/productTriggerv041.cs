@@ -5,6 +5,8 @@ using UnityEngine;
 public class productTriggerv041 : MonoBehaviour
 {
     [SerializeField]
+    private bool stayWin = false;
+    [SerializeField]
     private GameObject receiverObject;
     [SerializeField]
     private GameObject wall0;
@@ -19,11 +21,14 @@ public class productTriggerv041 : MonoBehaviour
     private GameObject target;
     private float timer = 0f;
     [SerializeField]
-    private const float timeThreshold = 4.5f;
-
+    private float timeThreshold = 0f;
 
     private void OnTriggerEnter(Collider other)
     {
+        if(stayWin)
+        {
+            timeThreshold = 5f;
+        }
         if (other.gameObject == wall0)
         {
             receiverObject.SendMessage("triggerReset");
