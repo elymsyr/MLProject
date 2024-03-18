@@ -196,6 +196,7 @@ public class ChildObjectManagerv041 : Agent
         {
             continuousActions[i] = UnityEngine.Random.Range(-1f, 1f);
         }
+        UnityEngine.Debug.Log("Heuristic!");
     }
 
 }
