@@ -9,6 +9,7 @@ using Unity.Barracuda;
 using System.Diagnostics;
 using UnityEngine.UIElements;
 using System;
+using Unity.VisualScripting;
 
 public class ChildObjectManagerv062 : Agent
 {
@@ -24,14 +25,17 @@ public class ChildObjectManagerv062 : Agent
     private Vector3 target_start;
     private Vector3 product_start;
     private float minY = 0f;
-    private float maxY = 3f;
+    private float maxY = 3.1f;
     [SerializeField]
+    [Range(0f, 20f)]
     private float move_speed = 8f;
     [SerializeField]
-    private float distance_lim = 4.35f;
+    [Range(1f, 7f)]
+    private float distance_lim = 4.4f;
     private Transform[,] childArray;
     private Rigidbody productRigidbody;
     [SerializeField]
+    [Range(0, 2000)]
     private int actionLimit = 800;
     private int actionCount = 0;
     private Vector3[,] tableLoc;
@@ -47,12 +51,15 @@ public class ChildObjectManagerv062 : Agent
     private int win = 0;
     [SerializeField]
     private GameObject text;
-    private float delta;
-    private float distance;
-    private float deltaDistance = 0;
     [SerializeField]
     private float[] wallBorders = {-41.75f,-24.65f,16.35f,-1.15f};
-    private float currentSpeed = 0;
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float directionFactor = 1f;
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float heightFactor = 0.2f;
+    private float directionPoint = 0;
     private void Awake()
     {
 
@@ -90,21 +97,20 @@ public class ChildObjectManagerv062 : Agent
     
     private void updateUI()
     {
-        ui.text = "Product States\nPosition: "+product.transform.position+"\nDistance to Target: "+targetCloseness()+"\nReward: "+GetCumulativeReward()+"\nDelta: "+delta+"\nAction Count: "+actionCount+"\nGame Count: "+gameCount+"\nWin Count: "+win;
+        ui.text = "Product States\nDirection: "+directionPoint+"\nPosition: "+product.transform.localPosition+"\nDistance to Target: "+targetCloseness()+"\nReward: "+GetCumulativeReward()+"\nAction Count: "+actionCount+"\nGame Count: "+gameCount+"\nWin Count: "+win;
     }
     public void triggerReset(){
-        AddReward(-2f);
+        AddReward(-1f);
         EndEpisode();
     }
     public void winReset(){
         win++;
-        AddReward(2f);
+        AddReward(1f);
         EndEpisode();
     }
     private float targetCloseness()
     {
-        float distance = Vector3.Distance(product.transform.localPosition, target.transform.localPosition);
-        return (float)Math.Round(distance - (int)distance, 2) + (int)distance;
+        return Vector3.Distance(product.transform.localPosition, target.transform.localPosition);
     }
     private bool GetDistanceToChild(Transform child)
     {
@@ -142,29 +148,14 @@ public class ChildObjectManagerv062 : Agent
                 UnityEngine.Debug.Log("Null child founded!");
             }
         }
-        distance = targetCloseness();
-        delta = deltaDistance - distance;
+
+        directionPoint = Vector3.Dot(productRigidbody.velocity.normalized, (target.transform.localPosition - product.transform.localPosition).normalized);
+        float reward = 0.001f * (directionPoint*directionFactor + (product.transform.localPosition.y-40)*heightFactor);
+        AddReward(reward);
+
         if (showUI)
         {
             updateUI();
-        }
-        deltaDistance = distance;
-        AddReward(delta*Mathf.Abs(startDistance-distance)/startDistance);
-        if (product.transform.localPosition.y > 40 && 43 > product.transform.localPosition.y){
-            AddReward(product.transform.localPosition.y/10000);
-        }
-        else{
-            AddReward((product.transform.localPosition.y-43)/100);
-        }
-
-        Vector3 directionToCheck = (target.transform.localPosition - product.transform.localPosition).normalized;
-
-        if (Vector3.Dot(productRigidbody.velocity.normalized, directionToCheck) > 0.7f)
-        {
-            AddReward(0.0012f);
-        }
-        else{
-            AddReward(-0.012f);
         }
     }
     public override void OnEpisodeBegin()
@@ -202,13 +193,13 @@ public class ChildObjectManagerv062 : Agent
         sensor.AddObservation(product.transform.localPosition);
         sensor.AddObservation(target.transform.localPosition);
         sensor.AddObservation(targetCloseness());
-        sensor.AddObservation(wallBorders[0]+scale/2);
-        sensor.AddObservation(wallBorders[1]-scale/2);
-        sensor.AddObservation(wallBorders[2]-scale/2);
-        sensor.AddObservation(wallBorders[3]+scale/2);
+        // sensor.AddObservation(wallBorders[0]+scale/2);
+        // sensor.AddObservation(wallBorders[1]-scale/2);
+        // sensor.AddObservation(wallBorders[2]-scale/2);
+        // sensor.AddObservation(wallBorders[3]+scale/2);
     }
     private Vector3 randomPos(){
-        return new Vector3(UnityEngine.Random.Range(wallBorders[0]+2f, wallBorders[1]-2f), legalY, UnityEngine.Random.Range(wallBorders[3]+2f, wallBorders[2]-2f));
+        return new Vector3(UnityEngine.Random.Range(wallBorders[0]+scale/2+0.1f, wallBorders[1]-scale/2-0.1f), legalY, UnityEngine.Random.Range(wallBorders[3]+scale/2+0.1f, wallBorders[2]-scale/2-0.1f));
     }
     public override void Heuristic(in ActionBuffers actionsOut)
     {

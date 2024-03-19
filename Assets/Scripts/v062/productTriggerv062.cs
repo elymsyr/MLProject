@@ -5,8 +5,6 @@ using UnityEngine;
 public class productTriggerv062 : MonoBehaviour
 {
     [SerializeField]
-    private bool stayWin = false;
-    [SerializeField]
     private GameObject receiverObject;
     [SerializeField]
     private GameObject wall0;
@@ -19,15 +17,15 @@ public class productTriggerv062 : MonoBehaviour
 
     [SerializeField]
     private GameObject target;
-    private float timer = 0f;
-    [SerializeField]
-    private float timeThreshold = 0f;
+    // private float timer = 0f;
+    // [SerializeField]
+    // private float timeThreshold = 0.01f;
 
     private void OnTriggerEnter(Collider other)
     {
-        if(stayWin)
+        if(other.gameObject == target)
         {
-            timeThreshold = 5f;
+            receiverObject.SendMessage("winReset");
         }
         if (other.gameObject == wall0)
         {
@@ -47,24 +45,24 @@ public class productTriggerv062 : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject == target)
-        {
-            timer += Time.deltaTime;
-            if (timer >= timeThreshold)
-            {
-                timer = 0;
-                receiverObject.SendMessage("winReset");
-            }
-        }
-    }
+    // private void OnTriggerStay(Collider other)
+    // {
+    //     if (other.gameObject == target)
+    //     {
+    //         timer += Time.deltaTime;
+    //         if (timer >= timeThreshold)
+    //         {
+    //             timer = 0;
+    //             receiverObject.SendMessage("winReset");
+    //         }
+    //     }
+    // }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject == target)
-        {
-            timer = 0f;
-        }
-    }
+    // private void OnTriggerExit(Collider other)
+    // {
+    //     if (other.gameObject == target)
+    //     {
+    //         timer = 0f;
+    //     }
+    // }
 }
