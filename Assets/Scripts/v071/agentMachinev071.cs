@@ -13,12 +13,8 @@ public class ChildObjectManagerv071 : Agent
     private int size = 7;
     [SerializeField]
     private bool showUI = false;  
-    [SerializeField]
-    [Range(0f, 20f)]
-    private float move_speed = 8f;  
-    [SerializeField]
-    [Range(0, 2000)]
-    private int actionLimit = 800;
+    private float move_speed = 9f;  
+    private int actionLimit = 700;
     [SerializeField]
     private GameObject env;
     [SerializeField]
@@ -29,22 +25,22 @@ public class ChildObjectManagerv071 : Agent
     private GameObject text;
     [SerializeField]
     private float[] wallBorders = {-41.75f,-24.65f,16.35f,-1.15f};
-    [SerializeField]
-    [Range(0f, 1f)]
-    private float directionFactor = 1f;
-    [SerializeField]
-    [Range(0f, 1f)]
-    private float heightFactor = 0.2f;     
+    private float directionFactor = 1.2f;
+    private float heightFactor = 0.3f;     
     private Transform[] activeArray;
     private float scale = 4.3f;
     private GameObject parentObject;
     private TextMeshPro ui;
+    [SerializeField]
+    [Range(13,18)]
     private int rows = 15;
+    [SerializeField]
+    [Range(13,18)]    
     private int columns = 15;
     private Vector3 target_start;
     private Vector3 product_start;
     private float minY = 0f;
-    private float maxY = 3.1f;
+    private float maxY = 3.5f;
     private Transform[,] childArray;
     private Rigidbody productRigidbody;
     private int actionCount = 0;
@@ -161,7 +157,6 @@ public class ChildObjectManagerv071 : Agent
         return rowIndex >= 0 && rowIndex < rows && colIndex >= 0 && colIndex < columns;
     }
     private string ActiveMap(){
-        // GetCircularArray(radius);
         string arrayString = "";
         for (int i = 0; i < size*size; i++)
         {

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657564, g: 0.49641138, b: 0.5748179, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2443,7 +2443,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &111749527
 Light:
   m_ObjectHideFlags: 0
@@ -3856,9 +3856,9 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: ff2022123e0d4734eaaa55effa4a5c1e, type: 3}
   m_InferenceDevice: 1
-  m_BehaviorType: 0
+  m_BehaviorType: 2
   m_BehaviorName: AgentBehavior
   TeamId: 0
   m_UseChildSensors: 1
@@ -3881,13 +3881,13 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   size: 7
-  showUI: 0
+  showUI: 1
   move_speed: 8
   actionLimit: 800
   env: {fileID: 2076935211}
   product: {fileID: 1416728082}
   target: {fileID: 1088095366}
-  text: {fileID: 0}
+  text: {fileID: 2144779939}
   wallBorders:
   - -41.75
   - -24.65
@@ -3895,6 +3895,8 @@ MonoBehaviour:
   - -1.15
   directionFactor: 1
   heightFactor: 0.2
+  rows: 15
+  columns: 15
 --- !u!4 &225166071
 Transform:
   m_ObjectHideFlags: 0
@@ -8762,7 +8764,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &541749523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8859,7 +8861,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -25.37, y: -1.03}
-  m_SizeDelta: {x: 20.89, y: 4.03}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &542652994
 GameObject:
@@ -15661,7 +15663,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!20 &1064403223
 Camera:
   m_ObjectHideFlags: 0
@@ -19622,7 +19624,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1381797437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30545,7 +30547,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2144779940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30694,10 +30696,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 541749527}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 10.445, y: -2.015}
-  m_SizeDelta: {x: 20.89, y: 4.03}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
