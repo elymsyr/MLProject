@@ -24,7 +24,7 @@ public class ChildObjectManagerv071 : Agent
     [SerializeField]
     private GameObject text;
     [SerializeField]
-    private float[] wallBorders = {-41.75f,-24.65f,16.35f,-1.15f};
+    private float[] wallBorders = {-43.9f,-22.5f,18.5f,-3.3f};
     private float directionFactor = 1.2f;
     private float heightFactor = 0.3f;     
     private Transform[] activeArray;
@@ -165,7 +165,7 @@ public class ChildObjectManagerv071 : Agent
             if ((i+1)%size == 0){arrayString += "\n";}
         }
         return arrayString;       
-    }    
+    }
     public override void OnActionReceived(ActionBuffers actions)
     {
         if (actionLimit < actionCount)
