@@ -8,6 +8,7 @@ using System;
 public class dynamicTable : Agent
 {
     [SerializeField] private bool showUI = false;
+    [SerializeField] private bool randomTableSize = false;
     [SerializeField] private GameObject text;
     private TextMeshPro ui;
     private float directionPoint = 0;
@@ -24,7 +25,7 @@ public class dynamicTable : Agent
     private GameObject product;
     private GameObject target;
     private int actionCount = 0;
-    private int actionLimit = 800;
+    private int actionLimit = 700;
     private int gameCount = -1;
     private int size = 6;
     [Range(0f,10f)] public float MoveSpeed = 8f;
@@ -51,6 +52,18 @@ public class dynamicTable : Agent
         if (product == null){Debug.Log("Product NULL");}
         if (target == null){Debug.Log("Target NULL");}
         productRigidbody = product.GetComponent<Rigidbody>();
+        boxesArray = table.getPieces;
+        rows = table.rows;
+        columns = table.columns;
+        wallBorders = table.getBorders;
+        productCollision productClass = product.GetComponent<productCollision>();
+        productClass.Initialize(table.wallsArray[0],table.wallsArray[1],table.wallsArray[2],table.wallsArray[3],target,gameObject);
+        boxesLoc = new Vector3[rows,columns];     
+        for(int i=0; i<rows;i++){
+            for(int j=0;j<columns;j++){
+                boxesLoc[i,j]=boxesArray[i,j].transform.localPosition;
+            }
+        }        
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -100,27 +113,32 @@ public class dynamicTable : Agent
 
     public override void OnEpisodeBegin()
     {
-        productRigidbody.velocity = Vector3.zero;
-        product.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
-        table.ResetEnv();
-        rows = table.rows;
-        columns = table.columns;
-        wallBorders = null;
-        boxesArray = new Transform[rows,columns];
-        boxesLoc = new Vector3[rows,columns];
-        wallBorders = table.getBorders;
-        boxesArray = table.getPieces;
-        for(int i=0; i<rows;i++){
-            for(int j=0;j<columns;j++){
-                boxesLoc[i,j]=boxesArray[i,j].transform.localPosition;
-            }
+        if(!randomTableSize){
+            table.ObjectPos();
         }
+        else{
+            table.ResetEnv();
+            rows = table.rows;
+            columns = table.columns;
+            wallBorders = null;
+            boxesArray = new Transform[rows,columns];
+            boxesLoc = new Vector3[rows,columns];
+            wallBorders = table.getBorders;
+            boxesArray = table.getPieces;
+            productCollision productClass = product.GetComponent<productCollision>();
+            productClass.Initialize(table.wallsArray[0],table.wallsArray[1],table.wallsArray[2],table.wallsArray[3],target,gameObject);
+            for(int i=0; i<rows;i++){
+                for(int j=0;j<columns;j++){
+                    boxesLoc[i,j]=boxesArray[i,j].transform.localPosition;
+                }
+            }                     
+        }
+        product.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+        productRigidbody.velocity = Vector3.zero;
         actionCount = 0;
         gameCount++;
         activeArray = new Transform[size*size];
         GetActiveArray();
-        productCollision productClass = product.GetComponent<productCollision>();
-        productClass.Initialize(table.wallsArray[0],table.wallsArray[1],table.wallsArray[2],table.wallsArray[3],target,gameObject);
         startDist = targetCloseness();
     }
     

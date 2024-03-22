@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class CreateBoard : MonoBehaviour
 {
-    [SerializeField] [Range(20,50)] public int rows = 25;
-    [SerializeField] [Range(20,50)] public int columns = 25;
+    public bool randomScale = false;
+    [SerializeField] [Range(20,50)] public int rows = 20;
+    [SerializeField] [Range(20,50)] public int columns = 20;
     private float gap = 0.2f;
     public Material boxMaterial;
     public Material coverMaterial;
@@ -34,11 +35,15 @@ public class CreateBoard : MonoBehaviour
 
     public void ResetEnv(){
         ClearEnvironment();
-        int new_size = Random.Range(10,50);
+        int new_size = Random.Range(15,50);
         rows = new_size;
         columns = new_size;
         Vector3 boardSize = CreateBoxes();
         CreateWalls(boardSize);
+        ObjectPos();
+    }
+
+    public void ResetEnvSimp(){
         ObjectPos();
     }
     
@@ -198,9 +203,12 @@ public class CreateBoard : MonoBehaviour
 
         productCollision productClass = product.GetComponent<productCollision>();
         productClass.Initialize(wallsArray[0],wallsArray[1],wallsArray[2],wallsArray[3],target,gameObject);
-        var new_scale = Random.Range(3f,6f);
-        scale = new_scale;
-        product.transform.localScale = new Vector3(new_scale,new_scale,new_scale);       
+        if(randomScale){
+            var new_scale = Random.Range(3f,5f);
+            scale = new_scale;
+            product.transform.localScale = new Vector3(new_scale,new_scale,new_scale);            
+        }
+        else{scale = 4.3f;product.transform.localScale = new Vector3(scale,scale,scale);}
     }
 
     private Vector3 randomPos(){
