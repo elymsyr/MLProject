@@ -1,32 +1,43 @@
 using UnityEngine;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents;
+using TMPro;
 using Unity.MLAgents.Sensors;
-using UnityEngine.U2D;
 using System;
 
 public class dynamicTable : Agent
 {
+    [SerializeField] private bool showUI = false;
+    [SerializeField] private GameObject text;
+    private TextMeshPro ui;
+    private float directionPoint = 0;
+    private int win = 0;
     private float[] wallBorders;
     private CreateBoard table;
     private int rows;
     private int columns;
-    private float directionFactor = 1.2f;
-    private float heightFactor = 0.3f;
+    private float directionFactor = 1.3f;
+    private float heightFactor = 0.5f;
+    private float distanceFactor = 0.11f;
     public Transform[,] boxesArray;
-    public Transform[,] boxesStartLoc;
+    public Vector3[,] boxesLoc;
     private GameObject product;
     private GameObject target;
     private int actionCount = 0;
     private int actionLimit = 800;
-    private int gameCount = 0;
+    private int gameCount = -1;
     private int size = 6;
     [Range(0f,10f)] public float MoveSpeed = 8f;
     private Transform[] activeArray;
     private Rigidbody productRigidbody;
+    private float startDist; 
 
     void Awake()
     {
+        if (text != null)
+        {
+            ui = text.GetComponent<TextMeshPro>();
+        }        
         table = transform.GetComponent<CreateBoard>();
         rows = table.rows;
         columns = table.columns;
@@ -34,6 +45,12 @@ public class dynamicTable : Agent
         {
             Destroy(child.gameObject);
         }
+        table.CreateEnv();
+        product = table.getProduct;
+        target = table.getTarget;        
+        if (product == null){Debug.Log("Product NULL");}
+        if (target == null){Debug.Log("Target NULL");}
+        productRigidbody = product.GetComponent<Rigidbody>();
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -63,7 +80,7 @@ public class dynamicTable : Agent
                 {
                     int i = index / rows;
                     int j = index % columns;
-                    child.transform.localPosition = boxesStartLoc[i, j].transform.localPosition;
+                    child.transform.localPosition = boxesLoc[i, j];
                 }
                 index++;
             }
@@ -71,36 +88,50 @@ public class dynamicTable : Agent
                 Debug.Log("Null child founded!");
             }
         }
-
-        var directionPoint = Vector3.Dot(productRigidbody.velocity.normalized, (target.transform.localPosition - product.transform.localPosition).normalized);
-        float reward = 0.001f * (directionPoint*directionFactor + (product.transform.localPosition.y-40)*heightFactor);
+        directionPoint = Vector3.Dot(productRigidbody.velocity.normalized, (target.transform.localPosition - product.transform.localPosition).normalized);
+        float reward = productRigidbody.velocity.magnitude * 0.001f * (directionPoint*directionFactor + (product.transform.localPosition.y-7.5f)*heightFactor + (startDist-targetCloseness())*distanceFactor);
         AddReward(reward);
 
-        // if (showUI)
-        // {
-        //     updateUI();
-        // }
+        if (showUI)
+        {
+            updateUI();
+        }
     }
 
     public override void OnEpisodeBegin()
     {
-        CreateEnvironment();
+        productRigidbody.velocity = Vector3.zero;
+        product.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+        table.ResetEnv();
+        rows = table.rows;
+        columns = table.columns;
+        wallBorders = null;
+        boxesArray = new Transform[rows,columns];
+        boxesLoc = new Vector3[rows,columns];
+        wallBorders = table.getBorders;
+        boxesArray = table.getPieces;
+        for(int i=0; i<rows;i++){
+            for(int j=0;j<columns;j++){
+                boxesLoc[i,j]=boxesArray[i,j].transform.localPosition;
+            }
+        }
         actionCount = 0;
-        ++gameCount;
+        gameCount++;
         activeArray = new Transform[size*size];
         GetActiveArray();
-    }    
+        productCollision productClass = product.GetComponent<productCollision>();
+        productClass.Initialize(table.wallsArray[0],table.wallsArray[1],table.wallsArray[2],table.wallsArray[3],target,gameObject);
+        startDist = targetCloseness();
+    }
     
     public void triggerReset(){
         AddReward(-1f);
-        ClearEnvionment();
         EndEpisode();
     }
     
     public void winReset(){
         // win++;
         AddReward(1f);
-        ClearEnvionment();
         EndEpisode();
     }
 
@@ -117,7 +148,6 @@ public class dynamicTable : Agent
                 sensor.AddObservation(0);
             }
         }
-        var scale = table.productScale;
         sensor.AddObservation(product.transform.localPosition);
         sensor.AddObservation(target.transform.localPosition);
         sensor.AddObservation(targetCloseness());
@@ -125,8 +155,23 @@ public class dynamicTable : Agent
         sensor.AddObservation(wallBorders[1]);
         sensor.AddObservation(wallBorders[2]);
         sensor.AddObservation(wallBorders[3]);
-        sensor.AddObservation(scale);
-        // sensor.AddObservation(0);
+        sensor.AddObservation(table.productScale);
+    }
+
+    private void updateUI()
+    {
+        ui.text = "Product States\nBoard Size: "+rows+"x"+columns+"\nDirection: "+directionPoint+"\nSpeed: "+productRigidbody.velocity.magnitude+"\nPosition: "+product.transform.localPosition+"\nDistance to Target: "+targetCloseness()+"\nReward: "+GetCumulativeReward()+"\nAction Count: "+actionCount+"\nGame Count: "+gameCount+"\nWin Count: "+win+"\nActive Parts Map: \n"+ActiveMap();
+    }
+
+    private string ActiveMap(){
+        string arrayString = "";
+        for (int i = 0; i < size*size; i++)
+        {
+            if (activeArray[i] != null){arrayString += "O ";}
+            else{arrayString += "X ";}
+            if ((i+1)%size == 0){arrayString += "\n";}
+        }
+        return arrayString;       
     }
 
     private void GetActiveArray()
@@ -191,33 +236,6 @@ public class dynamicTable : Agent
     {
         float distance = Vector3.Distance(gameObject.transform.InverseTransformPoint(new Vector3(child.position.x, 0f, child.position.z)), gameObject.transform.InverseTransformPoint(new Vector3(product.transform.position.x, 0f, product.transform.position.z)));
         return distance;
-    }
-    
-    private void CreateEnvironment(){
-        Vector3 boardSize = table.CreateBoxes();
-        table.CreateWalls(boardSize);
-        wallBorders = table.getBorders;
-        boxesArray = table.getPieces;
-        boxesStartLoc = boxesArray;
-        table.LoadPrefabs();
-        product = table.getProduct;
-        target = table.getTarget;
-        productRigidbody = product.GetComponent<Rigidbody>();
-    }
-
-    private void ClearEnvionment(){
-        table.ClearEnvironment();
-        foreach (Transform child in table.transform)
-        {
-            Destroy(child.gameObject);
-        }
-        wallBorders = null;
-        boxesArray = null;
-        boxesArray = null;
-        boxesStartLoc = null;
-        activeArray = null;
-        productRigidbody = null;
-
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)

@@ -18,27 +18,27 @@ public class productCollision : MonoBehaviour
         receiverObject = receiver;
     }
 
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //     if(other.gameObject == target)
-    //     {
-    //         receiverObject.SendMessage("winReset");
-    //     }
-    //     if (other.gameObject == wall4)
-    //     {
-    //         receiverObject.SendMessage("triggerReset");
-    //     }
-    //     if (other.gameObject == wall1)
-    //     {
-    //         receiverObject.SendMessage("triggerReset");
-    //     }
-    //     if (other.gameObject == wall2)
-    //     {
-    //         receiverObject.SendMessage("triggerReset");
-    //     }
-    //     if (other.gameObject == wall3)
-    //     {
-    //         receiverObject.SendMessage("triggerReset");
-    //     }
-    // }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject == target)
+        {
+            receiverObject.SendMessage("winReset");
+        }
+        if (other.gameObject == wall4)
+        {
+            receiverObject.SendMessage("triggerReset");
+        }
+        if (other.gameObject == wall1)
+        {
+            receiverObject.SendMessage("triggerReset");
+        }
+        if (other.gameObject == wall2)
+        {
+            receiverObject.SendMessage("triggerReset");
+        }
+        if (other.gameObject == wall3)
+        {
+            receiverObject.SendMessage("triggerReset");
+        }
+    }
 }

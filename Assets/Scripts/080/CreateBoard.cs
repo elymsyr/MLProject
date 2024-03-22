@@ -9,7 +9,8 @@ public class CreateBoard : MonoBehaviour
     public Material coverMaterial;
     public Material wallMaterial;
     private GameObject pieces;
-    private GameObject[] wallsArray;
+    private GameObject cover;
+    public GameObject[] wallsArray;
     private Transform[,] boxesArray;
     private float[] wallBorders;
     public GameObject[] getWalls => wallsArray;
@@ -24,6 +25,23 @@ public class CreateBoard : MonoBehaviour
     private float scale = 4.3f;
     public float productScale => scale;
 
+    public void CreateEnv(){
+        Vector3 boardSize = CreateBoxes();
+        CreateWalls(boardSize);
+        LoadPrefabs();   
+        ObjectPos();
+    }
+
+    public void ResetEnv(){
+        ClearEnvironment();
+        int new_size = Random.Range(10,50);
+        rows = new_size;
+        columns = new_size;
+        Vector3 boardSize = CreateBoxes();
+        CreateWalls(boardSize);
+        ObjectPos();
+    }
+    
     public Vector3 CreateBoxes()
     {
 
@@ -65,7 +83,7 @@ public class CreateBoard : MonoBehaviour
         }
 
         Vector3 coverSize = new Vector3(totalWidth+1f, 4, totalHeight+1f);
-        GameObject cover = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        cover = GameObject.CreatePrimitive(PrimitiveType.Cube);
         cover.name = "Board";
         cover.transform.parent = transform;
         cover.transform.position = startPos + new Vector3(totalWidth / 2f, -0.3f, totalHeight / 2f);
@@ -151,23 +169,23 @@ public class CreateBoard : MonoBehaviour
                 }
             }
             wallsArray[i] = wall;
-           
         }
-
     }
 
     public void LoadPrefabs(){
-        GameObject product = Instantiate(productPrefab);
+        product = Instantiate(productPrefab);
 
         product.transform.parent = transform;
         product.name = "Product";
         product.transform.localRotation = Quaternion.identity;
 
-        GameObject target = Instantiate(targetPrefab);
+        target = Instantiate(targetPrefab);
         target.transform.parent = transform;
         target.name = "Target";
         target.transform.localRotation = Quaternion.identity;
+    }
 
+    public void ObjectPos(){
         Vector3 target_start;
         Vector3 product_start;
         do {
@@ -178,15 +196,18 @@ public class CreateBoard : MonoBehaviour
         target.transform.localPosition = target_start;
         product.transform.localPosition = product_start;
 
-        productCollision productClass = product.AddComponent<productCollision>();
+        productCollision productClass = product.GetComponent<productCollision>();
         productClass.Initialize(wallsArray[0],wallsArray[1],wallsArray[2],wallsArray[3],target,gameObject);
+        var new_scale = Random.Range(3f,6f);
+        scale = new_scale;
+        product.transform.localScale = new Vector3(new_scale,new_scale,new_scale);       
     }
 
     private Vector3 randomPos(){
         return new Vector3(Random.Range(wallBorders[0]-(scale/2)-0.5f, wallBorders[1]+(scale/2)+0.5f), 10f, Random.Range(wallBorders[2]-(scale/2)-0.5f, wallBorders[3]+(scale/2)+0.5f));
     }    
 
-    public void ClearEnvironment()
+public void ClearEnvironment()
     {
         foreach (Transform child in boxesArray)
         {
@@ -196,10 +217,13 @@ public class CreateBoard : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        Destroy(pieces.gameObject);
+        Destroy(cover.gameObject);
         wallsArray = null;
         wallBorders = null;
         boxesArray = null;
-        target = null;
         pieces = null;
+        cover = null;
     }
+
 }
