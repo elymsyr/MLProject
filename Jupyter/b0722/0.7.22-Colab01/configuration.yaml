@@ -66,7 +66,7 @@ engine_settings:
 environment_parameters: null
 checkpoint_settings:
   run_id: ColabTest2
-  initialize_from: /content/MLProject/Jupyter/b0722/DynamicTable-1551195.pt
+  initialize_from: null
   load_model: false
   resume: false
   force: false
