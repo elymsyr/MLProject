@@ -20,10 +20,10 @@ public class productCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject == target)
-        {
-            receiverObject.SendMessage("winReset");
-        }
+        // if(other.gameObject == target)
+        // {
+        //     receiverObject.SendMessage("winReset");
+        // }
         if (other.gameObject == wall4)
         {
             receiverObject.SendMessage("triggerReset");
