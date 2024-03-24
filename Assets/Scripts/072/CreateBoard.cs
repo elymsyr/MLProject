@@ -2,19 +2,22 @@ using UnityEngine;
 
 public class CreateBoard : MonoBehaviour
 {
+    [Header("Table Settings")]
     public bool randomScale = false;
-    [SerializeField] [Range(20,50)] public int rows = 20;
-    [SerializeField] [Range(20,50)] public int columns = 20;
+    [SerializeField] [Range(15,50)] public int rows = 20;
+    [SerializeField] [Range(15,50)] public int columns = 20;
+    [Header("Target Settings")]
+    public bool TargetRun = false;
+    [SerializeField] [Range(-1,10)] public float TargetMoveSpeed = 5f;
     private float gap = 0.2f;
+    [Header("Prefabs & Others")]
     public Material boxMaterial;
     public Material coverMaterial;
     public Material wallMaterial;
     private GameObject pieces;
     private GameObject cover;
-    public GameObject[] wallsArray;
     private Transform[,] boxesArray;
     private float[] wallBorders;
-    public GameObject[] getWalls => wallsArray;
     public float[] getBorders => wallBorders ; 
     public Transform[,] getPieces => boxesArray;
     [SerializeField] private GameObject productPrefab;
@@ -24,7 +27,10 @@ public class CreateBoard : MonoBehaviour
     private GameObject target;
     public GameObject getTarget => target;
     private float scale = 4.3f;
+    public GameObject[] getWalls => wallsArray;
+
     public float productScale => scale;
+    public GameObject[] wallsArray;
 
     public void CreateEnv(){
         Vector3 boardSize = CreateBoxes();
@@ -179,13 +185,13 @@ public class CreateBoard : MonoBehaviour
 
     public void LoadPrefabs(){
         product = Instantiate(productPrefab);
-
         product.transform.parent = transform;
         product.name = "Product";
         product.transform.localRotation = Quaternion.identity;
 
         target = Instantiate(targetPrefab);
         target.transform.parent = transform;
+        target.SendMessage("AwakeMe");     
         target.name = "Target";
         target.transform.localRotation = Quaternion.identity;
     }
@@ -209,6 +215,7 @@ public class CreateBoard : MonoBehaviour
             product.transform.localScale = new Vector3(new_scale,new_scale,new_scale);            
         }
         else{scale = 4.3f;product.transform.localScale = new Vector3(scale,scale,scale);}
+        target.SendMessage("GetBorders");          
     }
 
     private Vector3 randomPos(){
