@@ -47,10 +47,6 @@ public class ChildObjectManagerv040 : Agent
     private int win = 0;
     [SerializeField]
     private GameObject text;
-
-private void Update(){
-    UnityEngine.Debug.Log(GetCumulativeReward());
-}
     private void Awake()
     {
 

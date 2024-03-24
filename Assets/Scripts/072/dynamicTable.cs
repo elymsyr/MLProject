@@ -29,16 +29,14 @@ public class dynamicTable : Agent
     private int actionCount = 0;
     private int actionLimit = 700;
     private int gameCount = -1;
-    private int size = 8;
-    [Range(0f,15f)] public float MoveSpeed = 10f;
+    private int size = 6;
+    [Range(0f,15f)] public float MoveSpeed = 8f;
     private Transform[] activeArray;
     private Rigidbody productRigidbody;
     private float startDist;
-    List<Tuple<int, int>> specifiedPoints; 
 
     void Awake()
     {
-       specifiedPoints = new List<Tuple<int, int>>(){new Tuple<int, int>(0, 0),new Tuple<int, int>(0, 1),new Tuple<int, int>(1, 0),new Tuple<int, int>(2, 0),new Tuple<int, int>(0, 2),new Tuple<int, int>(0, 5),new Tuple<int, int>(0, 6),new Tuple<int, int>(0, 7),new Tuple<int, int>(1, 7),new Tuple<int, int>(2, 7),new Tuple<int, int>(5, 0),new Tuple<int, int>(6, 0),new Tuple<int, int>(7, 0),new Tuple<int, int>(7, 1),new Tuple<int, int>(7, 2),new Tuple<int, int>(7, 5),new Tuple<int, int>(7, 6),new Tuple<int, int>(7, 7),new Tuple<int, int>(6, 7),new Tuple<int, int>(5, 7),};
         if (text != null)
         {
             ui = text.GetComponent<TextMeshPro>();
@@ -144,7 +142,7 @@ public class dynamicTable : Agent
         productRigidbody.velocity = Vector3.zero;
         actionCount = 0;
         gameCount++;
-        activeArray = new Transform[size*size-specifiedPoints.Count];
+        activeArray = new Transform[size*size];
         GetActiveArray();
         startDist = targetCloseness();
     }
@@ -181,7 +179,6 @@ public class dynamicTable : Agent
         sensor.AddObservation(wallBorders[2]);
         sensor.AddObservation(wallBorders[3]);
         sensor.AddObservation(table.productScale);
-        sensor.AddObservation(productRigidbody.velocity.magnitude);
     }
 
     private void updateUI()
@@ -191,20 +188,10 @@ public class dynamicTable : Agent
 
     private string ActiveMap(){
         string arrayString = "";
-        int index = 0;
-        int[] alpha = new int[20];
-        for(int i=0;i<specifiedPoints.Count;i++){
-            alpha[i] = specifiedPoints[i].Item1*8+specifiedPoints[i].Item2;
-        }
         for (int i = 0; i < size*size; i++)
         {
-            if (alpha.Contains(i)){arrayString += "_ ";}
-            else{
-                if (activeArray[index] != null){arrayString += "O ";}
-                else{arrayString += "X ";}
-                index++;
-            }
-
+            if (activeArray[i] != null){arrayString += "O ";}
+            else{arrayString += "X ";}
             if ((i+1)%size == 0){arrayString += "\n";}
         }
         return arrayString;       
@@ -213,7 +200,7 @@ public class dynamicTable : Agent
     private void GetActiveArray()
     {
         int[] centerPoint = FindClosestTransform();
-        bool isInList;
+
         int startX = centerPoint[0] - size / 2;
         int startY = centerPoint[1] - size / 2;
         int index = 0;
@@ -221,16 +208,13 @@ public class dynamicTable : Agent
         {
             for (int j = 0; j < size; j++)
             {
-                isInList = specifiedPoints.Any(tuple => tuple.Item1 == (i,j).Item1 && tuple.Item2 == (i,j).Item2);
-                if (!isInList){
-                    if(IsIndexValid(startX + i, startY + j) && boxesArray[startX + i, startY + j] != null){
-                        activeArray[index] = boxesArray[startX + i, startY + j];
-                    }
-                    else{
-                        activeArray[index] = null;
-                    }                    
-                index++;
+                if(IsIndexValid(startX + i, startY + j) && boxesArray[startX + i, startY + j] != null){
+                    activeArray[index] = boxesArray[startX + i, startY + j];
                 }
+                else{
+                    activeArray[index] = null;
+                }
+                index++;
             }
         }
     }
@@ -280,7 +264,7 @@ public class dynamicTable : Agent
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
-        for (int i = 0; i < size*size-specifiedPoints.Count; i++)
+        for (int i = 0; i < size*size; i++)
         {
             continuousActions[i] = UnityEngine.Random.Range(-1f, 1f);
         }       

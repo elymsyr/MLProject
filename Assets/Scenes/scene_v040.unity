@@ -9286,7 +9286,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 496034195}
+  - component: {fileID: 496034196}
   - component: {fileID: 496034193}
+  - component: {fileID: 496034197}
   m_Layer: 0
   m_Name: agentMachine
   m_TagString: Player
@@ -9595,6 +9597,45 @@ Transform:
   - {fileID: 268482067}
   m_Father: {fileID: 1883870660}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &496034196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496034191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6257e5d27d02a9489a7bc66c69fa679, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  switchBehavior: 0
+  showUI: 1
+  move_speed: 8
+  distance_lim: 4.35
+  actionLimit: 900
+  env: {fileID: 1883870659}
+  product: {fileID: 2011535747}
+  target: {fileID: 340529268}
+  text: {fileID: 179263884}
+--- !u!114 &496034197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496034191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  TakeActionsBetweenDecisions: 1
 --- !u!1 &499835628
 GameObject:
   m_ObjectHideFlags: 0
