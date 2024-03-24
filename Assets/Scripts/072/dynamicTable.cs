@@ -148,7 +148,7 @@ public class dynamicTable : Agent
     }
     
     public void winReset(){
-        // win++;
+        win++;
         AddReward(1f);
         EndEpisode();
     }
