@@ -35,15 +35,15 @@ public class TargetMovement2 : MonoBehaviour
                 float horizontalInput = Random.Range(0f, 2f);
                 float verticalInput = Random.Range(0f, 2f);
                 float newXPosition = transform.localPosition.x + horizontalInput * table.TargetMoveSpeed * Time.deltaTime * X;
-                if(newXPosition > wallBorders[0]-2f || newXPosition < wallBorders[1]+2f){X=-X;}
+                if(newXPosition > wallBorders[0]-5f || newXPosition < wallBorders[1]+5f){X=-X;}
                 float newZPosition = transform.localPosition.z + verticalInput * table.TargetMoveSpeed * Time.deltaTime * Z;
-                if(newZPosition > wallBorders[2]-2f || newZPosition < wallBorders[3]+2f){Z=-Z;}
+                if(newZPosition > wallBorders[2]-5f || newZPosition < wallBorders[3]+5f){Z=-Z;}
                 transform.localPosition = new Vector3(newXPosition, transform.localPosition.y, newZPosition);
                 if (Vector3.Distance(product.transform.localPosition, transform.localPosition) < distance){
                     float randomX = Random.Range(0f, 3f);
                     float randomZ = Random.Range(0f, 3f);
-                    if (randomX < 0.1f){X = -X;}
-                    if (randomZ < 0.1f){Z = -Z;}
+                    if (randomX < 0.2f){X = -X;}
+                    if (randomZ < 0.2f){Z = -Z;}
                 }
             }
         }
