@@ -41,10 +41,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/scene_b0722.unity
     guid: 6e87feb4a18cd444c8a9929a7887212b
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/scene_b0722rt.unity
     guid: b1009e97be7354940be2105f04a80210
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/scene_b0722trf.unity
     guid: 526bfad318cb146459269f280c87fe43
   m_configObjects: {}

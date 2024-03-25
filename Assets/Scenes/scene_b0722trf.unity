@@ -287,7 +287,7 @@ MonoBehaviour:
   m_Model: {fileID: 5022602860645237092, guid: fd3c15a62f9a9f84d880523d49fd8991, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 2
-  m_BehaviorName: My Behavior
+  m_BehaviorName: Dynamic Table
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
@@ -410,7 +410,7 @@ MonoBehaviour:
   m_Model: {fileID: 5022602860645237092, guid: fd3c15a62f9a9f84d880523d49fd8991, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 2
-  m_BehaviorName: My Behavior
+  m_BehaviorName: Dynamic Table
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
@@ -989,7 +989,7 @@ MonoBehaviour:
   m_Model: {fileID: 5022602860645237092, guid: fd3c15a62f9a9f84d880523d49fd8991, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 2
-  m_BehaviorName: My Behavior
+  m_BehaviorName: Dynamic Table
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
@@ -1112,7 +1112,7 @@ MonoBehaviour:
   m_Model: {fileID: 5022602860645237092, guid: fd3c15a62f9a9f84d880523d49fd8991, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 2
-  m_BehaviorName: My Behavior
+  m_BehaviorName: Dynamic Table
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
@@ -1269,7 +1269,7 @@ MonoBehaviour:
   m_Model: {fileID: 5022602860645237092, guid: fd3c15a62f9a9f84d880523d49fd8991, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 2
-  m_BehaviorName: My Behavior
+  m_BehaviorName: Dynamic Table
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
@@ -1497,7 +1497,7 @@ MonoBehaviour:
   m_Model: {fileID: 5022602860645237092, guid: fd3c15a62f9a9f84d880523d49fd8991, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 2
-  m_BehaviorName: My Behavior
+  m_BehaviorName: Dynamic Table
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
@@ -1725,7 +1725,7 @@ MonoBehaviour:
   m_Model: {fileID: 5022602860645237092, guid: fd3c15a62f9a9f84d880523d49fd8991, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 2
-  m_BehaviorName: My Behavior
+  m_BehaviorName: Dynamic Table
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
@@ -1953,7 +1953,7 @@ MonoBehaviour:
   m_Model: {fileID: 5022602860645237092, guid: fd3c15a62f9a9f84d880523d49fd8991, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 2
-  m_BehaviorName: My Behavior
+  m_BehaviorName: Dynamic Table
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
