@@ -8,7 +8,7 @@ public class CreateBoard2 : MonoBehaviour
     [SerializeField] [Range(15,50)] public int columns = 20;
     [Header("Target Settings")]
     public bool TargetRun = false;
-    [SerializeField] [Range(-1,10)] public float TargetMoveSpeed = 5f;
+    [SerializeField] [Range(-1,10)] public float TargetMoveSpeed = 6f;
     private float gap = 0.2f;
     [Header("Prefabs & Others")]
     public Material boxMaterial;
