@@ -9,7 +9,7 @@ public class productCollision2 : MonoBehaviour
     private GameObject target;
     private GameObject receiverObject;
 
-    public void Initialize(GameObject setWall1,GameObject setWall2,GameObject setWall3,GameObject setWall4,GameObject setTarget, GameObject receiver){
+    public void InitializeProduct(GameObject setWall1,GameObject setWall2,GameObject setWall3,GameObject setWall4,GameObject setTarget, GameObject receiver){
         wall1 = setWall1;
         wall2 = setWall2;
         wall3 = setWall3;

@@ -8,6 +8,8 @@ public class TargetMovement2 : MonoBehaviour
     private float Z = 1;
     private GameObject product;
     private bool startrun = false;
+    private float distance = 0;
+    private bool run;
 
     private void AwakeMe(){
         table = transform.parent.GetComponent<CreateBoard2>();
@@ -18,8 +20,7 @@ public class TargetMovement2 : MonoBehaviour
     {
         if (isMovementOn && startrun)
         {
-            float distance = 0;
-            if(product!=null){distance = Vector3.Distance(product.transform.localPosition, transform.localPosition);}
+            distance = Vector3.Distance(product.transform.localPosition, transform.localPosition);
             if (Input.anyKey)
             {
                 float horizontalInput = Input.GetAxis("Horizontal");
@@ -32,18 +33,25 @@ public class TargetMovement2 : MonoBehaviour
             }
             else
             {
+                run = true;
+                int border = Random.Range(4,15);
+                if(border==14){border=9;}
+                else if (border>11){border-=5;}
+                else if(border>9){border-=4;}
                 float horizontalInput = Random.Range(0f, 2f);
                 float verticalInput = Random.Range(0f, 2f);
                 float newXPosition = transform.localPosition.x + horizontalInput * table.TargetMoveSpeed * Time.deltaTime * X;
-                if(newXPosition > wallBorders[0]-5f || newXPosition < wallBorders[1]+5f){X=-X;}
                 float newZPosition = transform.localPosition.z + verticalInput * table.TargetMoveSpeed * Time.deltaTime * Z;
-                if(newZPosition > wallBorders[2]-5f || newZPosition < wallBorders[3]+5f){Z=-Z;}
+                if (newXPosition > wallBorders[0] - border) { X = -1 * System.Math.Abs(X); run = false; }
+                else if (newXPosition < wallBorders[1] + border) { X = System.Math.Abs(X); run = false; }
+                if(newZPosition > wallBorders[2]-border){ Z = -1 * System.Math.Abs(Z); run = false;}
+                else if(newZPosition < wallBorders[3]+border){ Z = System.Math.Abs(Z); run = false; }
                 transform.localPosition = new Vector3(newXPosition, transform.localPosition.y, newZPosition);
-                if (Vector3.Distance(product.transform.localPosition, transform.localPosition) < distance){
+                if ((Vector3.Distance(product.transform.localPosition, transform.localPosition) < distance) && run){
                     float randomX = Random.Range(0f, 3f);
                     float randomZ = Random.Range(0f, 3f);
-                    if (randomX < 0.2f){X = -X;}
-                    if (randomZ < 0.2f){Z = -Z;}
+                    if (randomX < 0.1f){X = -X;}
+                    if (randomZ < 0.1f){Z = -Z;}
                 }
             }
         }
@@ -53,5 +61,7 @@ public class TargetMovement2 : MonoBehaviour
         wallBorders = table.getBorders;
         startrun = true;
         isMovementOn = table.TargetRun;
+        var RandomSpeed = table.RandomTargetSpeed;
+        if(RandomSpeed){table.TargetMoveSpeed = Random.Range(2f,6f);}
     }
 }

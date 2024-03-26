@@ -8,7 +8,8 @@ public class CreateBoard2 : MonoBehaviour
     [SerializeField] [Range(15,50)] public int columns = 20;
     [Header("Target Settings")]
     public bool TargetRun = false;
-    [SerializeField] [Range(-1,10)] public float TargetMoveSpeed = 6f;
+    public bool RandomTargetSpeed = false;
+    [SerializeField] [Range(2f,6f)] public float TargetMoveSpeed = 4f;
     private float gap = 0.2f;
     [Header("Prefabs & Others")]
     public Material boxMaterial;
@@ -41,7 +42,7 @@ public class CreateBoard2 : MonoBehaviour
 
     public void ResetEnv(){
         ClearEnvironment();
-        int new_size = Random.Range(15,50);
+        int new_size = Random.Range(20,40);
         rows = new_size;
         columns = new_size;
         Vector3 boardSize = CreateBoxes();
@@ -60,7 +61,7 @@ public class CreateBoard2 : MonoBehaviour
         pieces = new GameObject("Pieces");
         pieces.transform.parent = transform;    
 
-        Vector3 boxSize = new Vector3(1, 4, 1);
+        Vector3 boxSize = new Vector3(1, 6, 1);
         float totalWidth = rows * (boxSize.x + gap);
         float totalHeight = columns * (boxSize.z + gap);
 
@@ -121,7 +122,7 @@ public class CreateBoard2 : MonoBehaviour
         wallsArray = new GameObject[4];
         wallBorders = new float[4];
         float wallThickness = 0.2f;
-        float wallHeight = 10f;
+        float wallHeight = 15f;
 
         Vector3[] wallPositions = {
             new Vector3(boardSize.x / 2f, wallHeight / 2f, 0f),

@@ -19,20 +19,14 @@ public class dynamicTable2 : Agent
     private CreateBoard2 table;
     private int rows;
     private int columns;
-    private float directionFactor = 1.3f;
-    private float heightFactor = 0.5f;
-    private float distanceFactor = 0.11f;
     public Transform[,] boxesArray;
     public Vector3[,] boxesLoc;
     private GameObject product;
     private GameObject target;
     private int size = 8;
-    private int resetType = 0;
-    private string resetString;
     [Range(0f,15f)] public float MoveSpeed = 10f;
     private Transform[] activeArray;
     private Rigidbody productRigidbody;
-    private float startDist;
     List<Tuple<int, int>> specifiedPoints; 
 
     void Awake()
@@ -53,6 +47,7 @@ public class dynamicTable2 : Agent
         table.CreateEnv();
         product = table.getProduct;
         target = table.getTarget;
+
         if (product == null){Debug.Log("Product NULL");}
         if (target == null){Debug.Log("Target NULL");}
         productRigidbody = product.GetComponent<Rigidbody>();
@@ -60,8 +55,8 @@ public class dynamicTable2 : Agent
         rows = table.rows;
         columns = table.columns;
         wallBorders = table.getBorders;
-        productCollision productClass = product.GetComponent<productCollision>();
-        productClass.Initialize(table.wallsArray[0],table.wallsArray[1],table.wallsArray[2],table.wallsArray[3],target,gameObject);
+        productCollision2 productClass = product.GetComponent<productCollision2>();
+        productClass.InitializeProduct(table.wallsArray[0],table.wallsArray[1],table.wallsArray[2],table.wallsArray[3],target,gameObject);
         boxesLoc = new Vector3[rows,columns];     
         for(int i=0; i<rows;i++){
             for(int j=0;j<columns;j++){
@@ -83,7 +78,7 @@ public class dynamicTable2 : Agent
             {
                 if (Array.IndexOf(activeArray, child) != -1){
                     float newYPosition = child.localPosition.y + actions.ContinuousActions[movingPartsIndex] * MoveSpeed * Time.deltaTime;
-                    newYPosition = Mathf.Clamp(newYPosition, 0f, 3.95f);
+                    newYPosition = Mathf.Clamp(newYPosition, 0f, 4.7f);
                     child.localPosition = new Vector3(child.localPosition.x, newYPosition, child.localPosition.z);
                     movingPartsIndex++;
                 }
@@ -100,10 +95,9 @@ public class dynamicTable2 : Agent
             }
         }
         directionPoint = Vector3.Dot(productRigidbody.velocity.normalized, (target.transform.localPosition - product.transform.localPosition).normalized);
-        var heightPoint = product.transform.localPosition.y-7.5f;
-        if (heightPoint>8.5f){heightPoint *= -1;}
-        var distancePoint = startDist-targetCloseness();
-        float reward = 0.001f * (directionPoint*directionFactor*productRigidbody.velocity.magnitude + heightPoint*heightFactor + distancePoint*distanceFactor);
+        if(directionPoint<0.3&&directionPoint>0){directionPoint*=-1;}
+        var heightPoint = Math.Abs(product.transform.localPosition.y-7.21f);
+        float reward = 0.0001f * (directionPoint*productRigidbody.velocity.magnitude*productRigidbody.velocity.magnitude)*(1f/(heightPoint*targetCloseness()));
         AddReward(reward);
 
         if (showUI)
@@ -114,9 +108,6 @@ public class dynamicTable2 : Agent
 
     public override void OnEpisodeBegin()
     {
-        resetString = getResetType();
-        resetType = 0;
-        Debug.Log(CompletedEpisodes);
         if(!randomTableSize){
             table.ObjectPos();
         }
@@ -129,8 +120,8 @@ public class dynamicTable2 : Agent
             boxesLoc = new Vector3[rows,columns];
             wallBorders = table.getBorders;
             boxesArray = table.getPieces;
-            productCollision productClass = product.GetComponent<productCollision>();
-            productClass.Initialize(table.wallsArray[0],table.wallsArray[1],table.wallsArray[2],table.wallsArray[3],target,gameObject);
+            productCollision2 productClass = product.GetComponent<productCollision2>();
+            productClass.InitializeProduct(table.wallsArray[0],table.wallsArray[1],table.wallsArray[2],table.wallsArray[3],target,gameObject);
             for(int i=0; i<rows;i++){
                 for(int j=0;j<columns;j++){
                     boxesLoc[i,j]=boxesArray[i,j].transform.localPosition;
@@ -141,19 +132,16 @@ public class dynamicTable2 : Agent
         productRigidbody.velocity = Vector3.zero;
         activeArray = new Transform[size*size-specifiedPoints.Count];
         GetActiveArray();
-        startDist = targetCloseness();
     }
     
     public void triggerReset(){
         AddReward(-2f);
-        resetType = -1;
         EndEpisode();
     }
     
     public void winReset(){
         win++;
-        resetType = 1;
-        AddReward(1f);
+        AddReward(2f);
         EndEpisode();
     } 
 
@@ -183,9 +171,8 @@ public class dynamicTable2 : Agent
 
     private void updateUI()
     {
-        ui.text = "Product States\nBoard Size: "+rows+"x"+columns+"\nDirection: "+directionPoint+"\nSpeed: "+productRigidbody.velocity.magnitude+"\nPosition: "+product.transform.localPosition+"\nDistance to Target: "+targetCloseness()+"\nReward: "+GetCumulativeReward()+"\nAction Count: "+StepCount+"\nGame Count: "+CompletedEpisodes+"\nWin Count: "+win+"\nLast Episode: "+resetString+"\nActive Parts Map: \n"+ActiveMap();
+        ui.text = "Product States\nBoard Size: "+rows+"x"+columns+"\nDirection: "+directionPoint+"\nSpeed: "+productRigidbody.velocity.magnitude+"\nPosition: "+product.transform.localPosition+"\nDistance to Target: "+targetCloseness()+"\nReward: "+GetCumulativeReward()+"\nAction Count: "+StepCount+"\nGame Count: "+CompletedEpisodes+"\nWin Count: "+win+"\nActive Parts Map: \n"+ActiveMap();
     }
-    private string getResetType(){if(resetType == 0){return "Max Step Reached";}else if(resetType == 1){return "Win Reset";}else{return "Wall Triggered";}}
     private string ActiveMap(){
         string arrayString = "";
         int index = 0;
