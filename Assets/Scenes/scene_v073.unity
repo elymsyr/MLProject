@@ -913,7 +913,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: fd3c15a62f9a9f84d880523d49fd8991, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 41bd00653a9b9f345b71b09b09335ce4, type: 3}
   m_InferenceDevice: 1
   m_BehaviorType: 2
   m_BehaviorName: Dynamic Table
@@ -937,6 +937,7 @@ MonoBehaviour:
   rows: 25
   columns: 25
   TargetRun: 0
+  RandomTargetSpeed: 0
   TargetMoveSpeed: 4
   boxMaterial: {fileID: 2100000, guid: a61cb017c0358ee46be2affc7244d00f, type: 2}
   coverMaterial: {fileID: 2100000, guid: cd252fc1b36b5b74491f8ee82f5abcc4, type: 2}
