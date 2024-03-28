@@ -96,7 +96,7 @@ public class dynamicTable2 : Agent
         }
         directionPoint = Vector3.Dot(productRigidbody.velocity.normalized, (target.transform.localPosition - product.transform.localPosition).normalized);
         if(directionPoint<0.3&&directionPoint>0){directionPoint*=-1;}
-        var heightPoint = Math.Abs(product.transform.localPosition.y-7.21f);
+        var heightPoint = Math.Abs(product.transform.localPosition.y-7.21f) + 0.000001f;
         float reward = 0.0001f * (directionPoint*productRigidbody.velocity.magnitude*productRigidbody.velocity.magnitude)*(1f/(heightPoint*targetCloseness()));
         AddReward(reward);
 
